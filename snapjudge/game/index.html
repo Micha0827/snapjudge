@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snap Run</title>
+<style>
+  :root {
+    --bg: #0f1216; --panel: #171b21; --line: #2a3039; --text: #e6e9ee; --muted: #8b94a3;
+    --accent: #5aa9ff; --ok: #3ecf8e; --bad: #ff5d5d; --late: #ffb347;
+    --sky1: #141a22; --sky2: #1c2430; --ground: #2b3440; --ground-top: #3b4757;
+    --crate: #b07a3c; --pit: #06080b; --beam: #8a93a3; --deco: #3ecf8e;
+    --runner: #e6e9ee; --fog: #3a4452;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 16px; }
+  header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; margin-bottom: 12px; }
+  h1 { font-size: 22px; margin: 0; letter-spacing: .2px; }
+  .model { color: var(--muted); font-size: 13px; }
+  .lang { margin-left: auto; font-size: 13px; color: var(--muted); }
+  .lang a { color: var(--muted); } .lang a.on { color: var(--accent); text-decoration: none; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+  button { background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 8px;
+           padding: 7px 12px; font: inherit; cursor: pointer; }
+  button.on { border-color: var(--accent); color: var(--accent); }
+  button.primary { background: var(--accent); color: #06121f; border-color: var(--accent); font-weight: 600; }
+  label.slider { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
+  canvas { width: 100%; height: 300px; display: block; border-radius: 12px; border: 1px solid var(--line); }
+  .grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 12px; margin-top: 12px; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+  .card h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 10px; }
+  .sentence { font-size: 18px; min-height: 52px; }
+  .tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 99px; border: 1px solid var(--line);
+         color: var(--muted); margin-left: 6px; vertical-align: middle; }
+  .bars { margin-top: 10px; display: grid; gap: 6px; }
+  .bar { display: grid; grid-template-columns: 110px 1fr 52px; gap: 8px; align-items: center; font-size: 13px; }
+  .track { height: 12px; background: #0b0e12; border-radius: 6px; overflow: hidden; }
+  .fill { height: 100%; width: 0; background: var(--muted); transition: width .15s; }
+  .bar.pick .fill { background: var(--accent); }
+  .bar.gold span:first-child { text-decoration: underline; text-underline-offset: 3px; }
+  .verdict { margin-top: 10px; font-weight: 600; min-height: 22px; }
+  .ok { color: var(--ok); } .bad { color: var(--bad); } .late { color: var(--late); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .stat { background: #11151a; border-radius: 8px; padding: 8px; }
+  .stat b { display: block; font-size: 20px; }
+  .stat span { color: var(--muted); font-size: 12px; }
+  .bykind { margin-top: 10px; font-size: 13px; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; }
+  th, td { text-align: left; padding: 5px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 500; }
+  .keys { color: var(--muted); font-size: 13px; }
+  kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font: 12px ui-monospace, monospace; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="title">Snap Run</h1>
+    <span class="model" id="model"></span>
+    <span class="lang"><a href="?lang=en" id="lang-en">EN</a> · <a href="?lang=de" id="lang-de">DE</a></span>
+  </header>
+
+  <div class="controls">
+    <button data-mode="model" class="on" data-i18n="modeModel"></button>
+    <button data-mode="human" data-i18n="modeHuman"></button>
+    <button data-mode="bench" data-i18n="modeBench"></button>
+    <label class="slider"><span data-i18n="budget"></span> <input type="range" id="budget" min="0.3" max="4" step="0.1" value="2">
+      <b id="budgetVal"></b></label>
+    <button class="primary" id="start" data-i18n="start"></button>
+    <span class="keys" id="keys" hidden></span>
+  </div>
+
+  <canvas id="c"></canvas>
+
+  <div class="grid">
+    <div class="card">
+      <h2 data-i18n="decision"></h2>
+      <div class="sentence" id="sentence"></div>
+      <div class="bars" id="bars"></div>
+      <div class="verdict" id="verdict"></div>
+    </div>
+    <div class="card">
+      <h2 data-i18n="stats"></h2>
+      <div class="stats">
+        <div class="stat"><b id="sN">0</b><span data-i18n="statN"></span></div>
+        <div class="stat"><b id="sAcc">–</b><span data-i18n="statAcc"></span></div>
+        <div class="stat"><b id="sPass">–</b><span data-i18n="statPass"></span></div>
+        <div class="stat"><b id="sMed">–</b><span data-i18n="statMed"></span></div>
+        <div class="stat"><b id="sP95">–</b><span data-i18n="statP95"></span></div>
+        <div class="stat"><b id="sLives">–</b><span data-i18n="statLives"></span></div>
+      </div>
+      <div class="bykind" id="bykind"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:12px">
+    <h2 data-i18n="history"></h2>
+    <table><thead><tr><th data-i18n="colText"></th><th data-i18n="colGold"></th><th data-i18n="colGot"></th>
+      <th>p</th><th data-i18n="colLatency"></th><th data-i18n="colResult"></th></tr></thead>
+      <tbody id="log"></tbody></table>
+  </div>
+</div>
+
+<script>
+// Each obstacle reaches the model only as a sentence. The model must pick one of four actions
+// via POST /v1/systemone before the obstacle crosses the deadline line.
+const GAME_NAME = "Snap Run";
+const ACTIONS = ["run", "jump", "long_jump", "duck"];
+const KEYMAP = { ArrowUp: "jump", ArrowRight: "long_jump", ArrowDown: "duck" };
+const PLAYER_X = 130, DEC_OFFSET = 110;   // the decision point is 110 px ahead of the runner
+
+const qLang = new URLSearchParams(location.search).get("lang");
+const LANG = (qLang || navigator.language || "en").slice(0, 2) === "de" ? "de" : "en";
+
+const I18N = {
+  en: {
+    connecting: "connecting …", warming: m => `Model: ${m} · warming up …`, ready: m => `Model: ${m} · local on MLX`,
+    unreachable: e => `Server not reachable (${e})`,
+    modeModel: "Model plays", modeHuman: "I play", modeBench: "Benchmark", budget: "Time budget",
+    start: "Start", stop: "Stop",
+    keys: "<kbd>↑</kbd> jump · <kbd>→</kbd> long jump · <kbd>↓</kbd> duck · nothing = keep running",
+    decision: "Decision", stats: "Statistics", history: "History",
+    intro: "Press Start. Each obstacle reaches the model only as a sentence.",
+    statN: "Obstacles", statAcc: "correct answer", statPass: "correct & in time",
+    statMed: "Latency median", statP95: "Latency p95", statLives: "Lives / budget",
+    colText: "Sentence", colGold: "Expected", colGot: "Model", colLatency: "Latency", colResult: "Result",
+    actions: { run: "keep running", jump: "jump", long_jump: "long jump", duck: "duck" },
+    kinds: { normal: "normal", tricky: "tricky", trap: "trap" },
+    confidence: "Confidence", tooLate: "too late",
+    lateMsg: s => `⏱ too late – no answer after ${s}`, serverError: e => `Server error: ${e}`,
+    wrong: (got, gold) => `✗ ${got} instead of ${gold}`,
+    waiting: "waiting for answer …", answered: s => `answered after ${s}`,
+    benchDone: "Benchmark done", gameOver: "Game over",
+    summary: (n, acc, pass) => `${n} obstacles · ${acc} correct · ${pass} made it in time`,
+    lateCount: n => ` · too late: ${n}`,
+  },
+  de: {
+    connecting: "verbinde …", warming: m => `Modell: ${m} · wärmt auf …`, ready: m => `Modell: ${m} · lokal auf MLX`,
+    unreachable: e => `Server nicht erreichbar (${e})`,
+    modeModel: "Modell spielt", modeHuman: "Ich spiele", modeBench: "Benchmark", budget: "Zeitbudget",
+    start: "Start", stop: "Stopp",
+    keys: "<kbd>↑</kbd> springen · <kbd>→</kbd> weit springen · <kbd>↓</kbd> ducken · nichts = weiterlaufen",
+    decision: "Entscheidung", stats: "Statistik", history: "Verlauf",
+    intro: "Start drücken. Jedes Hindernis kommt nur als Satz beim Modell an.",
+    statN: "Hindernisse", statAcc: "inhaltlich richtig", statPass: "richtig & rechtzeitig",
+    statMed: "Latenz Median", statP95: "Latenz p95", statLives: "Leben / Budget",
+    colText: "Satz", colGold: "Soll", colGot: "Ist", colLatency: "Latenz", colResult: "Ergebnis",
+    actions: { run: "weiterlaufen", jump: "springen", long_jump: "weit springen", duck: "ducken" },
+    kinds: { normal: "normal", tricky: "knifflig", trap: "Falle" },
+    confidence: "Konfidenz", tooLate: "zu spät",
+    lateMsg: s => `⏱ zu spät – nach ${s} noch keine Antwort`, serverError: e => `Serverfehler: ${e}`,
+    wrong: (got, gold) => `✗ ${got} statt ${gold}`,
+    waiting: "wartet auf Antwort …", answered: s => `Antwort nach ${s}`,
+    benchDone: "Benchmark fertig", gameOver: "Game over",
+    summary: (n, acc, pass) => `${n} Hindernisse · inhaltlich ${acc} richtig · ${pass} rechtzeitig geschafft`,
+    lateCount: n => ` · zu spät: ${n}`,
+  },
+};
+const T = I18N[LANG];
+const num = (x, d) => LANG === "de" ? x.toFixed(d).replace(".", ",") : x.toFixed(d);
+const fmtS = ms => num(ms / 1000, 2) + " s";
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const $ = id => document.getElementById(id);
+
+let DATA = null, mode = "model", running = false, raf = 0;
+const canvas = $("c"), ctx = canvas.getContext("2d");
+let W = 0, H = 0, GROUND = 0;
+
+const state = {
+  budget: 2, lives: 3, obstacle: null, queue: [], waitUntil: 0, scroll: 0,
+  results: [], flash: 0, flashColor: "", shake: 0, over: false, summary: "",
+};
+
+function applyI18n() {
+  document.documentElement.lang = LANG;
+  document.title = GAME_NAME; $("title").textContent = GAME_NAME;
+  document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = T[el.dataset.i18n]; });
+  $("keys").innerHTML = T.keys;
+  $("model").textContent = T.connecting;
+  $("sentence").textContent = T.intro;
+  $("budgetVal").textContent = num(parseFloat($("budget").value), 1) + " s";
+  $("lang-" + LANG).classList.add("on");
+}
+
+function resize() {
+  const r = canvas.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  canvas.width = r.width * dpr; canvas.height = r.height * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  W = r.width; H = r.height; GROUND = H - 60;
+}
+window.addEventListener("resize", resize);
+
+// ---------------------------------------------------------------- server
+async function ask(text) {
+  const t0 = performance.now();
+  const r = await fetch("/v1/systemone", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ state: text, model: "local", questions: { action: DATA.question } }),
+  });
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  const j = await r.json();
+  return { ms: performance.now() - t0, ans: j.answers.action };
+}
+
+async function init() {
+  applyI18n();
+  resize();
+  DATA = await (await fetch(`obstacles.${LANG}.json`)).json();
+  try {
+    const m = await (await fetch("/v1/models")).json();
+    $("model").textContent = T.warming(m.models[0].name);
+    await ask(DATA.obstacles[0].text);   // the first call is slower; not measured
+    $("model").textContent = T.ready(m.models[0].name);
+  } catch (e) {
+    $("model").textContent = T.unreachable(e.message);
+  }
+  renderBars(null, null);
+  draw();
+}
+
+// ---------------------------------------------------------------- game flow
+function shuffled(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+function start() {
+  state.budget = parseFloat($("budget").value);
+  state.lives = mode === "bench" ? Infinity : 3;
+  state.results = []; state.obstacle = null; state.over = false; state.summary = "";
+  state.queue = shuffled(DATA.obstacles);
+  state.waitUntil = performance.now() + 600;
+  $("log").innerHTML = ""; updateStats();
+  running = true; $("start").textContent = T.stop;
+  cancelAnimationFrame(raf); last = performance.now(); raf = requestAnimationFrame(loop);
+}
+
+function stop(summary) {
+  running = false; $("start").textContent = T.start;
+  state.over = !!summary; state.summary = summary || "";
+  draw();
+}
+
+function speed() { return (W + 20 - (PLAYER_X + DEC_OFFSET)) / state.budget; }  // px/s
+
+function kindTag(kind) { return kind !== "normal" ? `<span class="tag">${T.kinds[kind]}</span>` : ""; }
+
+function spawn(now) {
+  if (!state.queue.length) {
+    if (mode === "bench") return stop(T.benchDone);
+    state.queue = shuffled(DATA.obstacles);
+  }
+  const h = state.queue.pop();
+  const width = { jump: 42, long_jump: 170, duck: 46, run: 60 }[h.label];
+  const o = { ...h, x: W + 20, width, spawnedAt: now, answer: null, ms: null, key: null,
+              decided: null, late: false, resolved: false, passed: false, error: null, row: null };
+  state.obstacle = o;
+  $("sentence").innerHTML = escapeHtml(o.text) + kindTag(o.kind);
+  $("verdict").textContent = ""; $("verdict").className = "verdict";
+  renderBars(null, null);
+  if (mode !== "human") {
+    ask(o.text).then(r => {
+      o.answer = r.ans; o.ms = r.ms;
+      if (!o.resolved) { o.decided = r.ans.choice; renderBars(r.ans, null); }
+      else finishLateAnswer(o);
+    }).catch(e => { o.error = e.message; });
+  }
+}
+
+function resolve(o) {
+  // Deadline reached: whatever is decided now gets executed.
+  o.resolved = true;
+  if (mode === "human") o.decided = o.key || "run";
+  else if (o.decided == null) { o.late = true; o.decided = "run"; }
+  o.correct = o.decided === o.label;
+  if (o.answer) renderBars(o.answer, o.label);
+  const row = { text: o.text, kind: o.kind, label: o.label, got: mode === "human" ? o.decided : (o.answer ? o.answer.choice : null),
+                p: o.answer ? o.answer.probabilities[o.answer.choice] : null, ms: o.ms, late: o.late, passed: o.correct };
+  o.row = row; state.results.push(row);
+  const v = $("verdict");
+  if (o.error) { v.textContent = T.serverError(o.error); v.className = "verdict bad"; }
+  else if (o.late) { v.textContent = T.lateMsg(fmtS(performance.now() - o.spawnedAt)); v.className = "verdict late"; }
+  else if (o.correct) { v.textContent = `✓ ${T.actions[o.decided]}` + (o.ms ? ` · ${fmtS(o.ms)}` : ""); v.className = "verdict ok"; }
+  else { v.textContent = T.wrong(T.actions[o.decided], T.actions[o.label]); v.className = "verdict bad"; }
+  addLogRow(row); updateStats();
+}
+
+function finishLateAnswer(o) {
+  // The answer arrived after the deadline: still score whether it was right.
+  o.row.got = o.answer.choice; o.row.p = o.answer.probabilities[o.answer.choice]; o.row.ms = o.ms;
+  renderBars(o.answer, o.label);
+  refreshLog(); updateStats();
+}
+
+function onPass(o) {
+  o.passed = true;
+  if (!o.correct) {
+    state.flash = 1; state.flashColor = o.late ? css("--late") : css("--bad"); state.shake = 1;
+    if (mode !== "bench") { state.lives--; if (state.lives <= 0) return stop(T.gameOver); }
+  } else if (mode === "model") {
+    state.budget = Math.max(0.3, state.budget * 0.96);   // gets faster with every hit
+  }
+  state.waitUntil = performance.now() + 300 + Math.random() * 500;
+}
+
+let last = 0;
+function loop(now) {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  if (running) {
+    const v = speed();
+    state.scroll += v * dt;
+    const o = state.obstacle;
+    if (o) {
+      o.x -= v * dt;
+      if (!o.resolved && o.x <= PLAYER_X + DEC_OFFSET) resolve(o);
+      if (o.resolved && !o.passed && o.x + o.width < PLAYER_X - 12) onPass(o);
+      if (o.passed && o.x + o.width < -40) state.obstacle = null;
+    } else if (now >= state.waitUntil) spawn(now);
+    state.flash = Math.max(0, state.flash - dt * 2.5);
+    state.shake = Math.max(0, state.shake - dt * 3);
+    updateLivesBudget();
+  }
+  draw();
+  if (running) raf = requestAnimationFrame(loop);
+}
+
+// ---------------------------------------------------------------- drawing
+function draw() {
+  if (!W) return;
+  const sx = state.shake ? (Math.random() - .5) * 8 * state.shake : 0;
+  ctx.save(); ctx.translate(sx, 0);
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, css("--sky1")); g.addColorStop(1, css("--sky2"));
+  ctx.fillStyle = g; ctx.fillRect(-10, 0, W + 20, H);
+
+  // parallax skyline
+  ctx.fillStyle = "#1f2733";
+  for (let i = 0; i < 14; i++) {
+    const bw = 70, x = ((i * 97 - state.scroll * 0.25) % (W + bw) + W + bw) % (W + bw) - bw;
+    const bh = 40 + (i * 53 % 70);
+    ctx.fillRect(x, GROUND - bh, bw - 12, bh);
+  }
+  // ground
+  const o = state.obstacle;
+  ctx.fillStyle = css("--ground");
+  ctx.fillRect(-10, GROUND, W + 20, H - GROUND);
+  ctx.fillStyle = css("--ground-top"); ctx.fillRect(-10, GROUND, W + 20, 4);
+  ctx.strokeStyle = "#384352"; ctx.lineWidth = 2;
+  for (let i = 0; i < 30; i++) {
+    const x = ((i * 60 - state.scroll) % (W + 60) + W + 60) % (W + 60) - 30;
+    ctx.beginPath(); ctx.moveTo(x, GROUND + 18); ctx.lineTo(x + 22, GROUND + 18); ctx.stroke();
+  }
+
+  // deadline line
+  ctx.setLineDash([5, 6]); ctx.strokeStyle = "rgba(90,169,255,.45)"; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(PLAYER_X + DEC_OFFSET, 18); ctx.lineTo(PLAYER_X + DEC_OFFSET, GROUND); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = "rgba(90,169,255,.7)"; ctx.font = "11px -apple-system, sans-serif";
+  ctx.fillText("Deadline", PLAYER_X + DEC_OFFSET + 5, 28);
+
+  if (o) drawObstacle(o);
+  drawRunner(o);
+
+  // time bar: how much budget is left, and when the answer arrived
+  if (o && !o.resolved) {
+    const total = W + 20 - (PLAYER_X + DEC_OFFSET), left = Math.max(0, o.x - (PLAYER_X + DEC_OFFSET));
+    ctx.fillStyle = "#0b0e12"; ctx.fillRect(16, 12, 180, 8);
+    ctx.fillStyle = o.decided ? css("--ok") : css("--accent"); ctx.fillRect(16, 12, 180 * left / total, 8);
+    ctx.fillStyle = css("--muted"); ctx.font = "12px -apple-system, sans-serif";
+    ctx.fillText(o.decided ? T.answered(fmtS(o.ms)) : T.waiting, 16, 34);
+  }
+  if (state.flash) { ctx.fillStyle = state.flashColor; ctx.globalAlpha = state.flash * 0.25; ctx.fillRect(-10, 0, W + 20, H); ctx.globalAlpha = 1; }
+  if (state.over) {
+    ctx.fillStyle = "rgba(10,12,16,.72)"; ctx.fillRect(-10, 0, W + 20, H);
+    ctx.fillStyle = css("--text"); ctx.font = "600 26px -apple-system, sans-serif"; ctx.textAlign = "center";
+    ctx.fillText(state.summary, W / 2, H / 2 - 8);
+    ctx.font = "15px -apple-system, sans-serif"; ctx.fillStyle = css("--muted");
+    ctx.fillText(summaryLine(), W / 2, H / 2 + 20); ctx.textAlign = "left";
+  }
+  ctx.restore();
+}
+
+function drawObstacle(o) {
+  if (!o.resolved) {   // until the deadline the screen knows only the sentence, too
+    ctx.fillStyle = css("--fog"); roundRect(o.x, GROUND - 56, 52, 56, 8); ctx.fill();
+    ctx.fillStyle = css("--text"); ctx.font = "600 26px -apple-system, sans-serif";
+    ctx.fillText("?", o.x + 18, GROUND - 19);
+    return;
+  }
+  if (o.label === "jump") {
+    ctx.fillStyle = css("--crate"); ctx.fillRect(o.x, GROUND - 42, o.width, 42);
+    ctx.strokeStyle = "#7d5428"; ctx.lineWidth = 3; ctx.strokeRect(o.x + 1.5, GROUND - 40.5, o.width - 3, 39);
+    ctx.beginPath(); ctx.moveTo(o.x + 3, GROUND - 39); ctx.lineTo(o.x + o.width - 3, GROUND - 3); ctx.stroke();
+  } else if (o.label === "long_jump") {
+    ctx.fillStyle = css("--pit"); ctx.fillRect(o.x, GROUND, o.width, H - GROUND);
+    ctx.fillStyle = css("--sky2"); ctx.fillRect(o.x, GROUND - 1, o.width, 5);
+  } else if (o.label === "duck") {
+    ctx.strokeStyle = css("--beam"); ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(o.x + 8, 0); ctx.lineTo(o.x + 8, GROUND - 62); ctx.moveTo(o.x + o.width - 8, 0); ctx.lineTo(o.x + o.width - 8, GROUND - 62); ctx.stroke();
+    ctx.fillStyle = css("--beam"); ctx.fillRect(o.x, GROUND - 62, o.width, 26);   // bottom edge below head height, above a ducking runner
+  } else {
+    ctx.fillStyle = css("--deco");
+    for (let i = 0; i < 5; i++) { ctx.beginPath(); ctx.ellipse(o.x + 8 + i * 11, GROUND - 3 - (i % 2) * 2, 6, 3, i, 0, Math.PI * 2); ctx.fill(); }
+  }
+}
+
+function drawRunner(o) {
+  // the pose follows from where the obstacle is relative to the runner
+  let y = 0, squash = 1;
+  if (o && o.resolved && !o.passed) {
+    const span = { jump: 110 + o.width + 30, long_jump: 110 + o.width + 50, duck: 110 + o.width + 20, run: 1 }[o.decided];
+    const p = Math.min(1, Math.max(0, (PLAYER_X + DEC_OFFSET - o.x) / span));
+    if (o.decided === "jump") y = Math.sin(Math.PI * p) * 70;
+    if (o.decided === "long_jump") y = Math.sin(Math.PI * p) * 48;
+    if (o.decided === "duck" && p < 1) squash = 0.5;
+    if (!o.correct && p > 0.55) { y *= 0.3; if (o.label === "long_jump" && o.x < PLAYER_X && o.x + o.width > PLAYER_X) y = -18; }
+  }
+  const h = 46 * squash, x = PLAYER_X - 12, top = GROUND - y - h;
+  const phase = Math.sin(state.scroll / 14);
+  ctx.fillStyle = css("--runner");
+  ctx.beginPath(); ctx.arc(x + 12, top + 7, 7, 0, Math.PI * 2); ctx.fill();          // head
+  roundRect(x + 5, top + 15, 14, h - 27, 5); ctx.fill();                              // body
+  ctx.strokeStyle = css("--runner"); ctx.lineWidth = 4; ctx.lineCap = "round";
+  const hip = top + h - 12, foot = GROUND - y;
+  ctx.beginPath();
+  ctx.moveTo(x + 12, hip); ctx.lineTo(x + 12 + phase * 8, foot);
+  ctx.moveTo(x + 12, hip); ctx.lineTo(x + 12 - phase * 8, foot);
+  ctx.moveTo(x + 12, top + 20); ctx.lineTo(x + 12 - phase * 9, top + 30);
+  ctx.moveTo(x + 12, top + 20); ctx.lineTo(x + 12 + phase * 9, top + 30);
+  ctx.stroke();
+}
+
+function roundRect(x, y, w, h, r) { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); }
+
+// ---------------------------------------------------------------- panels
+function renderBars(ans, gold) {
+  $("bars").innerHTML = ACTIONS.map(a => {
+    const p = ans ? ans.probabilities[a] : 0;
+    const cls = ["bar", ans && ans.choice === a ? "pick" : "", gold === a ? "gold" : ""].join(" ");
+    return `<div class="${cls}"><span>${T.actions[a]}</span><div class="track"><div class="fill" style="width:${(p * 100).toFixed(1)}%"></div></div><span>${ans ? num(p * 100, 1) + " %" : ""}</span></div>`;
+  }).join("") + (ans ? `<div class="bar"><span>${T.confidence}</span><div class="track"><div class="fill" style="width:${(ans.confidence * 100).toFixed(1)}%;background:var(--muted)"></div></div><span>${num(ans.confidence, 2)}</span></div>` : "");
+}
+
+function addLogRow(row) {
+  const tr = document.createElement("tr"); row.tr = tr; fillRow(row);
+  $("log").prepend(tr);
+  while ($("log").children.length > 40) $("log").lastChild.remove();
+}
+function refreshLog() { state.results.forEach(r => r.tr && fillRow(r)); }
+function fillRow(r) {
+  const res = r.late ? `<span class="late">${T.tooLate}</span>` : r.passed ? `<span class="ok">✓</span>` : `<span class="bad">✗</span>`;
+  r.tr.innerHTML = `<td>${escapeHtml(r.text)}${kindTag(r.kind)}</td>
+    <td>${r.label}</td><td>${r.got ?? "–"}</td><td>${r.p != null ? num(r.p, 2) : "–"}</td>
+    <td>${r.ms != null ? fmtS(r.ms) : "–"}</td><td>${res}</td>`;
+}
+
+function median(a) { if (!a.length) return null; const s = a.slice().sort((x, y) => x - y); return s[Math.floor((s.length - 1) / 2)]; }
+function p95(a) { if (!a.length) return null; const s = a.slice().sort((x, y) => x - y); return s[Math.floor(0.95 * (s.length - 1))]; }
+const pct = (k, n) => n ? Math.round(100 * k / n) + " %" : "–";
+
+function updateStats() {
+  const R = state.results, n = R.length;
+  const answered = R.filter(r => r.got != null), right = answered.filter(r => r.got === r.label);
+  const ms = R.filter(r => r.ms != null).map(r => r.ms);
+  $("sN").textContent = n;
+  $("sAcc").textContent = pct(right.length, answered.length);
+  $("sPass").textContent = pct(R.filter(r => r.passed).length, n);
+  $("sMed").textContent = ms.length ? fmtS(median(ms)) : "–";
+  $("sP95").textContent = ms.length ? fmtS(p95(ms)) : "–";
+  $("bykind").textContent = ["normal", "tricky", "trap"].map(k => {
+    const sub = answered.filter(r => r.kind === k);
+    return `${T.kinds[k]}: ${sub.filter(r => r.got === r.label).length}/${sub.length}`;
+  }).join(" · ") + (R.some(r => r.late) ? T.lateCount(R.filter(r => r.late).length) : "");
+  updateLivesBudget();
+}
+function updateLivesBudget() {
+  const lives = state.lives === Infinity ? "∞" : "♥".repeat(Math.max(0, state.lives)) || "0";
+  $("sLives").textContent = `${lives} · ${num(state.budget, 2)} s`;
+}
+function summaryLine() {
+  const R = state.results, answered = R.filter(r => r.got != null);
+  return T.summary(R.length, pct(answered.filter(r => r.got === r.label).length, answered.length),
+                   pct(R.filter(r => r.passed).length, R.length));
+}
+function escapeHtml(s) { return s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]); }
+
+// ---------------------------------------------------------------- controls
+document.querySelectorAll("[data-mode]").forEach(b => b.addEventListener("click", () => {
+  if (running) stop();
+  mode = b.dataset.mode;
+  document.querySelectorAll("[data-mode]").forEach(x => x.classList.toggle("on", x === b));
+  $("keys").hidden = mode !== "human";
+}));
+$("budget").addEventListener("input", e => {
+  $("budgetVal").textContent = num(parseFloat(e.target.value), 1) + " s";
+  if (!running || mode === "bench") state.budget = parseFloat(e.target.value);
+});
+$("start").addEventListener("click", () => running ? stop() : start());
+window.addEventListener("keydown", e => {
+  if (mode !== "human" || !running || !KEYMAP[e.key]) return;
+  e.preventDefault();
+  const o = state.obstacle;
+  if (o && !o.resolved && !o.key) { o.key = KEYMAP[e.key]; o.ms = performance.now() - o.spawnedAt; }
+});
+
+init();
+</script>
+</body>
+</html>

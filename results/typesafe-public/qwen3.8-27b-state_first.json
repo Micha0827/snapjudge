@@ -1,0 +1,1647 @@
+{
+ "model": "Qwen3.8-27B-MLX-4bit",
+ "timings": {
+  "security_incidents/art_T1040-5__badge_onsite__t2": {
+   "total_ms": 20533.1,
+   "questions": 3,
+   "input_tokens": 2655
+  },
+  "security_incidents/art_T1021.006-1__factor_established__t1": {
+   "total_ms": 15609.7,
+   "questions": 3,
+   "input_tokens": 2254
+  },
+  "security_incidents/art_T1003.001-2__factor_recent__t1": {
+   "total_ms": 24641.2,
+   "questions": 14,
+   "input_tokens": 3213
+  },
+  "security_incidents/art_T1574.001-2__peer_contained__t0": {
+   "total_ms": 28344.1,
+   "questions": 14,
+   "input_tokens": 3760
+  },
+  "security_incidents/art_T1546.018-2__change_covers__t2": {
+   "total_ms": 22119.0,
+   "questions": 14,
+   "input_tokens": 2835
+  },
+  "agent_trace_observability/trace_185afd508b6907c6075de2931f14946c": {
+   "total_ms": 34886.4,
+   "questions": 9,
+   "input_tokens": 4509
+  },
+  "agent_trace_observability/trace_ce6a5fb975fce60de84457e97ab6ed35": {
+   "total_ms": 54654.7,
+   "questions": 9,
+   "input_tokens": 6886
+  },
+  "agent_trace_observability/trace_ebba36efa92c88a555ad4be8eabf149d": {
+   "total_ms": 53135.3,
+   "questions": 9,
+   "input_tokens": 6107
+  },
+  "agent_trace_observability/trace_e2ab80ce644dc6a4d4ea02cfcffcccee": {
+   "total_ms": 102165.9,
+   "questions": 12,
+   "input_tokens": 12957
+  },
+  "agent_trace_observability/trace_9222e1c90cfe97d34a6893f13889ff1d": {
+   "total_ms": 34933.8,
+   "questions": 10,
+   "input_tokens": 4493
+  },
+  "invoice_processing/ap_00149": {
+   "total_ms": 510370.6,
+   "questions": 48,
+   "input_tokens": 40120
+  },
+  "invoice_processing/ap_00198": {
+   "total_ms": 414736.4,
+   "questions": 43,
+   "input_tokens": 33822
+  },
+  "invoice_processing/ap_00074": {
+   "total_ms": 406739.4,
+   "questions": 43,
+   "input_tokens": 34563
+  },
+  "invoice_processing/ap_00246": {
+   "total_ms": 278611.8,
+   "questions": 26,
+   "input_tokens": 20104
+  },
+  "invoice_processing/ap_00225": {
+   "total_ms": 248367.7,
+   "questions": 24,
+   "input_tokens": 18450
+  },
+  "customer_service/retention-charged-after-cancel/t0": {
+   "total_ms": 38666.5,
+   "questions": 20,
+   "input_tokens": 3081
+  },
+  "customer_service/billing-double-charge-152/t2": {
+   "total_ms": 41321.0,
+   "questions": 18,
+   "input_tokens": 3104
+  },
+  "customer_service/refunds-espresso-impulse-148/t2": {
+   "total_ms": 33059.4,
+   "questions": 20,
+   "input_tokens": 3528
+  },
+  "customer_service/retention-sarcastic-sure-whatever/t0": {
+   "total_ms": 54638.5,
+   "questions": 14,
+   "input_tokens": 7203
+  },
+  "customer_service/billing-overdraft-no-food/t1": {
+   "total_ms": 42542.8,
+   "questions": 20,
+   "input_tokens": 3157
+  }
+ },
+ "answers": {
+  "security_incidents": {
+   "art_T1040-5__badge_onsite__t2": {
+    "context_explains_activity": {
+     "raw": 0.1969,
+     "kind": "noul"
+    },
+    "evidence_strength": {
+     "raw": "1",
+     "kind": "score"
+    },
+    "is_true_positive": {
+     "raw": 0.5856,
+     "kind": "noul"
+    }
+   },
+   "art_T1021.006-1__factor_established__t1": {
+    "context_explains_activity": {
+     "raw": 0.3184,
+     "kind": "noul"
+    },
+    "is_true_positive": {
+     "raw": 0.1301,
+     "kind": "noul"
+    },
+    "evidence_strength": {
+     "raw": "0",
+     "kind": "score"
+    }
+   },
+   "art_T1003.001-2__factor_recent__t1": {
+    "context_explains_activity": {
+     "raw": 0.0265,
+     "kind": "noul"
+    },
+    "is_true_positive": {
+     "raw": 0.877,
+     "kind": "noul"
+    },
+    "evidence_strength": {
+     "raw": "2",
+     "kind": "score"
+    },
+    "malicious_content_in_mailboxes": {
+     "raw": 0.0358,
+     "kind": "noul"
+    },
+    "attacker_persistence_present": {
+     "raw": 0.5531,
+     "kind": "noul"
+    },
+    "credentials_exposed": {
+     "raw": 0.3022,
+     "kind": "noul"
+    },
+    "malicious_process_running": {
+     "raw": 0.342,
+     "kind": "noul"
+    },
+    "outbound_channel_active": {
+     "raw": 0.0197,
+     "kind": "noul"
+    },
+    "session_in_attacker_hands": {
+     "raw": 0.1808,
+     "kind": "noul"
+    },
+    "spread_beyond_initial_entity": {
+     "raw": 0.299,
+     "kind": "noul"
+    },
+    "affected_scope": {
+     "raw": "single_entity",
+     "kind": "choice"
+    },
+    "activity_ongoing": {
+     "raw": 0.7513,
+     "kind": "noul"
+    },
+    "attacker_modified_configuration": {
+     "raw": 0.096,
+     "kind": "noul"
+    },
+    "attack_type": {
+     "raw": "host_compromise",
+     "kind": "choice"
+    }
+   },
+   "art_T1574.001-2__peer_contained__t0": {
+    "context_explains_activity": {
+     "raw": 0.0101,
+     "kind": "noul"
+    },
+    "is_true_positive": {
+     "raw": 0.9927,
+     "kind": "noul"
+    },
+    "evidence_strength": {
+     "raw": "2",
+     "kind": "score"
+    },
+    "malicious_content_in_mailboxes": {
+     "raw": 0.0552,
+     "kind": "noul"
+    },
+    "credentials_exposed": {
+     "raw": 0.199,
+     "kind": "noul"
+    },
+    "malicious_process_running": {
+     "raw": 0.6269,
+     "kind": "noul"
+    },
+    "session_in_attacker_hands": {
+     "raw": 0.3939,
+     "kind": "noul"
+    },
+    "outbound_channel_active": {
+     "raw": 0.0643,
+     "kind": "noul"
+    },
+    "activity_ongoing": {
+     "raw": 0.9644,
+     "kind": "noul"
+    },
+    "spread_beyond_initial_entity": {
+     "raw": 0.6977,
+     "kind": "noul"
+    },
+    "attacker_modified_configuration": {
+     "raw": 0.3779,
+     "kind": "noul"
+    },
+    "affected_scope": {
+     "raw": "organization_wide",
+     "kind": "choice"
+    },
+    "attacker_persistence_present": {
+     "raw": 0.8588,
+     "kind": "noul"
+    },
+    "attack_type": {
+     "raw": "host_compromise",
+     "kind": "choice"
+    }
+   },
+   "art_T1546.018-2__change_covers__t2": {
+    "context_explains_activity": {
+     "raw": 0.21,
+     "kind": "noul"
+    },
+    "evidence_strength": {
+     "raw": "1",
+     "kind": "score"
+    },
+    "is_true_positive": {
+     "raw": 0.3939,
+     "kind": "noul"
+    },
+    "malicious_content_in_mailboxes": {
+     "raw": 0.0453,
+     "kind": "noul"
+    },
+    "credentials_exposed": {
+     "raw": 0.0858,
+     "kind": "noul"
+    },
+    "session_in_attacker_hands": {
+     "raw": 0.0526,
+     "kind": "noul"
+    },
+    "malicious_process_running": {
+     "raw": 0.3493,
+     "kind": "noul"
+    },
+    "outbound_channel_active": {
+     "raw": 0.0361,
+     "kind": "noul"
+    },
+    "attacker_persistence_present": {
+     "raw": 0.929,
+     "kind": "noul"
+    },
+    "spread_beyond_initial_entity": {
+     "raw": 0.3429,
+     "kind": "noul"
+    },
+    "activity_ongoing": {
+     "raw": 0.7476,
+     "kind": "noul"
+    },
+    "affected_scope": {
+     "raw": "single_entity",
+     "kind": "choice"
+    },
+    "attacker_modified_configuration": {
+     "raw": 0.5048,
+     "kind": "noul"
+    },
+    "attack_type": {
+     "raw": "host_compromise",
+     "kind": "choice"
+    }
+   }
+  },
+  "agent_trace_observability": {
+   "trace_185afd508b6907c6075de2931f14946c": {
+    "handed_off": {
+     "raw": 0.9951,
+     "kind": "noul"
+    },
+    "request_fulfilled": {
+     "raw": 0.807,
+     "kind": "noul"
+    },
+    "left_undone": {
+     "raw": 0.0383,
+     "kind": "noul"
+    },
+    "handoff_required": {
+     "raw": 0.3714,
+     "kind": "noul"
+    },
+    "claims_supported": {
+     "raw": 0.4134,
+     "kind": "noul"
+    },
+    "reports_unresolved": {
+     "raw": 0.1039,
+     "kind": "noul"
+    },
+    "expressed_satisfaction": {
+     "raw": "2",
+     "kind": "score"
+    },
+    "in_scope": {
+     "raw": 0.9973,
+     "kind": "noul"
+    },
+    "request_specificity": {
+     "raw": "3",
+     "kind": "score"
+    }
+   },
+   "trace_ce6a5fb975fce60de84457e97ab6ed35": {
+    "handed_off": {
+     "raw": 0.0028,
+     "kind": "noul"
+    },
+    "request_fulfilled": {
+     "raw": 0.0018,
+     "kind": "noul"
+    },
+    "handoff_required": {
+     "raw": 0.7553,
+     "kind": "noul"
+    },
+    "claims_supported": {
+     "raw": 0.74,
+     "kind": "noul"
+    },
+    "left_undone": {
+     "raw": 0.0465,
+     "kind": "noul"
+    },
+    "reports_unresolved": {
+     "raw": 0.0041,
+     "kind": "noul"
+    },
+    "expressed_satisfaction": {
+     "raw": "2",
+     "kind": "score"
+    },
+    "attribution": {
+     "raw": "nothing_wrong",
+     "kind": "choice"
+    },
+    "first_bad_step": {
+     "raw": "none",
+     "kind": "choice"
+    }
+   },
+   "trace_ebba36efa92c88a555ad4be8eabf149d": {
+    "request_fulfilled": {
+     "raw": 0.0002,
+     "kind": "noul"
+    },
+    "handed_off": {
+     "raw": 0.0009,
+     "kind": "noul"
+    },
+    "handoff_required": {
+     "raw": 0.9658,
+     "kind": "noul"
+    },
+    "claims_supported": {
+     "raw": 0.7452,
+     "kind": "noul"
+    },
+    "left_undone": {
+     "raw": 0.0043,
+     "kind": "noul"
+    },
+    "reports_unresolved": {
+     "raw": 0.9808,
+     "kind": "noul"
+    },
+    "expressed_satisfaction": {
+     "raw": "1",
+     "kind": "score"
+    },
+    "first_bad_step": {
+     "raw": "none",
+     "kind": "choice"
+    },
+    "attribution": {
+     "raw": "nothing_wrong",
+     "kind": "choice"
+    }
+   },
+   "trace_e2ab80ce644dc6a4d4ea02cfcffcccee": {
+    "user_asked_or_agreed": {
+     "raw": 0.9989,
+     "kind": "noul"
+    },
+    "instructed_by_tool_output": {
+     "raw": 0.001,
+     "kind": "noul"
+    },
+    "within_grant": {
+     "raw": 0.0627,
+     "kind": "noul"
+    },
+    "request_fulfilled": {
+     "raw": 0.0001,
+     "kind": "noul"
+    },
+    "handed_off": {
+     "raw": 0.0,
+     "kind": "noul"
+    },
+    "left_undone": {
+     "raw": 0.7574,
+     "kind": "noul"
+    },
+    "handoff_required": {
+     "raw": 0.1664,
+     "kind": "noul"
+    },
+    "claims_supported": {
+     "raw": 0.3623,
+     "kind": "noul"
+    },
+    "reports_unresolved": {
+     "raw": 0.3171,
+     "kind": "noul"
+    },
+    "expressed_satisfaction": {
+     "raw": "2",
+     "kind": "score"
+    },
+    "first_bad_step": {
+     "raw": "none",
+     "kind": "choice"
+    },
+    "attribution": {
+     "raw": "nothing_wrong",
+     "kind": "choice"
+    }
+   },
+   "trace_9222e1c90cfe97d34a6893f13889ff1d": {
+    "instructed_by_tool_output": {
+     "raw": 0.0007,
+     "kind": "noul"
+    },
+    "user_asked_or_agreed": {
+     "raw": 0.9998,
+     "kind": "noul"
+    },
+    "within_grant": {
+     "raw": 0.9672,
+     "kind": "noul"
+    },
+    "request_fulfilled": {
+     "raw": 0.9961,
+     "kind": "noul"
+    },
+    "handed_off": {
+     "raw": 0.0123,
+     "kind": "noul"
+    },
+    "claims_supported": {
+     "raw": 0.9197,
+     "kind": "noul"
+    },
+    "handoff_required": {
+     "raw": 0.0087,
+     "kind": "noul"
+    },
+    "left_undone": {
+     "raw": 0.0002,
+     "kind": "noul"
+    },
+    "reports_unresolved": {
+     "raw": 0.0014,
+     "kind": "noul"
+    },
+    "expressed_satisfaction": {
+     "raw": "4",
+     "kind": "score"
+    }
+   }
+  },
+  "invoice_processing": {
+   "ap_00149": {
+    "line_0_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_0_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_0_completion": {
+     "raw": "confirmed",
+     "kind": "choice"
+    },
+    "line_0_rebilled": {
+     "raw": 0.0464,
+     "kind": "noul"
+    },
+    "line_0_owner_declined": {
+     "raw": 0.0139,
+     "kind": "noul"
+    },
+    "line_0_unexplained_fee": {
+     "raw": 0.2305,
+     "kind": "noul"
+    },
+    "line_0_rate_differs": {
+     "raw": 0.0876,
+     "kind": "noul"
+    },
+    "line_1_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_1_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_1_completion": {
+     "raw": "confirmed",
+     "kind": "choice"
+    },
+    "line_1_rebilled": {
+     "raw": 0.0474,
+     "kind": "noul"
+    },
+    "line_1_owner_declined": {
+     "raw": 0.0164,
+     "kind": "noul"
+    },
+    "line_1_unexplained_fee": {
+     "raw": 0.1552,
+     "kind": "noul"
+    },
+    "line_1_rate_differs": {
+     "raw": 0.0292,
+     "kind": "noul"
+    },
+    "line_2_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_2_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_2_completion": {
+     "raw": "confirmed",
+     "kind": "choice"
+    },
+    "line_2_rebilled": {
+     "raw": 0.0509,
+     "kind": "noul"
+    },
+    "line_2_owner_declined": {
+     "raw": 0.0092,
+     "kind": "noul"
+    },
+    "line_2_unexplained_fee": {
+     "raw": 0.139,
+     "kind": "noul"
+    },
+    "line_2_rate_differs": {
+     "raw": 0.0464,
+     "kind": "noul"
+    },
+    "line_3_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_3_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_3_completion": {
+     "raw": "vendor_only",
+     "kind": "choice"
+    },
+    "line_3_rebilled": {
+     "raw": 0.0597,
+     "kind": "noul"
+    },
+    "line_3_owner_declined": {
+     "raw": 0.0095,
+     "kind": "noul"
+    },
+    "line_3_unexplained_fee": {
+     "raw": 0.2133,
+     "kind": "noul"
+    },
+    "line_3_rate_differs": {
+     "raw": 0.0398,
+     "kind": "noul"
+    },
+    "line_4_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_4_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_4_completion": {
+     "raw": "confirmed",
+     "kind": "choice"
+    },
+    "line_4_rebilled": {
+     "raw": 0.0508,
+     "kind": "noul"
+    },
+    "line_4_owner_declined": {
+     "raw": 0.0162,
+     "kind": "noul"
+    },
+    "line_4_unexplained_fee": {
+     "raw": 0.2068,
+     "kind": "noul"
+    },
+    "line_4_rate_differs": {
+     "raw": 0.046,
+     "kind": "noul"
+    },
+    "prior_0": {
+     "raw": "earlier_period_or_phase",
+     "kind": "choice"
+    },
+    "prior_1": {
+     "raw": "earlier_period_or_phase",
+     "kind": "choice"
+    },
+    "prior_2": {
+     "raw": "earlier_period_or_phase",
+     "kind": "choice"
+    },
+    "approval_0": {
+     "raw": "approves_as_billed",
+     "kind": "choice"
+    },
+    "statement_not_invoice": {
+     "raw": 0.0445,
+     "kind": "noul"
+    },
+    "unusual_urgency": {
+     "raw": 0.1904,
+     "kind": "noul"
+    },
+    "bank_change_claimed_in_comms": {
+     "raw": 0.093,
+     "kind": "noul"
+    },
+    "different_entity": {
+     "raw": 0.044,
+     "kind": "noul"
+    },
+    "price_basis": {
+     "raw": "period_fee",
+     "kind": "choice"
+    },
+    "billed_above_basis": {
+     "raw": 0.0341,
+     "kind": "noul"
+    },
+    "too_ambiguous": {
+     "raw": 0.1525,
+     "kind": "noul"
+    },
+    "unexplained_charges": {
+     "raw": 0.0319,
+     "kind": "noul"
+    },
+    "tax_two_rates": {
+     "raw": 0.0669,
+     "kind": "noul"
+    }
+   },
+   "ap_00198": {
+    "line_0_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_0_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_0_completion": {
+     "raw": "none",
+     "kind": "choice"
+    },
+    "line_0_rebilled": {
+     "raw": 0.1584,
+     "kind": "noul"
+    },
+    "line_0_owner_declined": {
+     "raw": 0.0333,
+     "kind": "noul"
+    },
+    "line_0_unexplained_fee": {
+     "raw": 0.3637,
+     "kind": "noul"
+    },
+    "line_0_rate_differs": {
+     "raw": 0.0953,
+     "kind": "noul"
+    },
+    "line_1_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_1_scope": {
+     "raw": "not_ours",
+     "kind": "choice"
+    },
+    "line_1_completion": {
+     "raw": "none",
+     "kind": "choice"
+    },
+    "line_1_rebilled": {
+     "raw": 0.2452,
+     "kind": "noul"
+    },
+    "line_1_owner_declined": {
+     "raw": 0.0174,
+     "kind": "noul"
+    },
+    "line_1_unexplained_fee": {
+     "raw": 0.4174,
+     "kind": "noul"
+    },
+    "line_1_rate_differs": {
+     "raw": 0.0917,
+     "kind": "noul"
+    },
+    "line_2_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_2_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_2_completion": {
+     "raw": "confirmed",
+     "kind": "choice"
+    },
+    "line_2_rebilled": {
+     "raw": 0.1338,
+     "kind": "noul"
+    },
+    "line_2_owner_declined": {
+     "raw": 0.0103,
+     "kind": "noul"
+    },
+    "line_2_unexplained_fee": {
+     "raw": 0.3178,
+     "kind": "noul"
+    },
+    "line_2_rate_differs": {
+     "raw": 0.0659,
+     "kind": "noul"
+    },
+    "line_3_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_3_scope": {
+     "raw": "not_ours",
+     "kind": "choice"
+    },
+    "line_3_completion": {
+     "raw": "vendor_only",
+     "kind": "choice"
+    },
+    "line_3_rebilled": {
+     "raw": 0.1437,
+     "kind": "noul"
+    },
+    "line_3_owner_declined": {
+     "raw": 0.0107,
+     "kind": "noul"
+    },
+    "line_3_unexplained_fee": {
+     "raw": 0.4403,
+     "kind": "noul"
+    },
+    "line_3_rate_differs": {
+     "raw": 0.0742,
+     "kind": "noul"
+    },
+    "prior_0": {
+     "raw": "unrelated",
+     "kind": "choice"
+    },
+    "prior_1": {
+     "raw": "unrelated",
+     "kind": "choice"
+    },
+    "prior_2": {
+     "raw": "unrelated",
+     "kind": "choice"
+    },
+    "prior_3": {
+     "raw": "earlier_period_or_phase",
+     "kind": "choice"
+    },
+    "approval_0": {
+     "raw": "approves_as_billed",
+     "kind": "choice"
+    },
+    "sender_0": {
+     "raw": "unconfirmable_story",
+     "kind": "choice"
+    },
+    "statement_not_invoice": {
+     "raw": 0.0347,
+     "kind": "noul"
+    },
+    "unusual_urgency": {
+     "raw": 0.2477,
+     "kind": "noul"
+    },
+    "bank_change_claimed_in_comms": {
+     "raw": 0.1344,
+     "kind": "noul"
+    },
+    "different_entity": {
+     "raw": 0.0872,
+     "kind": "noul"
+    },
+    "price_basis": {
+     "raw": "period_fee",
+     "kind": "choice"
+    },
+    "billed_above_basis": {
+     "raw": 0.7384,
+     "kind": "noul"
+    },
+    "too_ambiguous": {
+     "raw": 0.9808,
+     "kind": "noul"
+    },
+    "unexplained_charges": {
+     "raw": 0.0124,
+     "kind": "noul"
+    },
+    "tax_two_rates": {
+     "raw": 0.0639,
+     "kind": "noul"
+    }
+   },
+   "ap_00074": {
+    "line_0_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_0_scope": {
+     "raw": "not_ours",
+     "kind": "choice"
+    },
+    "line_0_completion": {
+     "raw": "none",
+     "kind": "choice"
+    },
+    "line_0_rebilled": {
+     "raw": 0.0615,
+     "kind": "noul"
+    },
+    "line_0_owner_declined": {
+     "raw": 0.0142,
+     "kind": "noul"
+    },
+    "line_0_unexplained_fee": {
+     "raw": 0.2392,
+     "kind": "noul"
+    },
+    "line_0_rate_differs": {
+     "raw": 0.1392,
+     "kind": "noul"
+    },
+    "line_1_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_1_scope": {
+     "raw": "not_ours",
+     "kind": "choice"
+    },
+    "line_1_completion": {
+     "raw": "none",
+     "kind": "choice"
+    },
+    "line_1_rebilled": {
+     "raw": 0.0831,
+     "kind": "noul"
+    },
+    "line_1_owner_declined": {
+     "raw": 0.0194,
+     "kind": "noul"
+    },
+    "line_1_unexplained_fee": {
+     "raw": 0.2087,
+     "kind": "noul"
+    },
+    "line_1_rate_differs": {
+     "raw": 0.1483,
+     "kind": "noul"
+    },
+    "line_2_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_2_scope": {
+     "raw": "not_ours",
+     "kind": "choice"
+    },
+    "line_2_completion": {
+     "raw": "confirmed",
+     "kind": "choice"
+    },
+    "line_2_rebilled": {
+     "raw": 0.0837,
+     "kind": "noul"
+    },
+    "line_2_owner_declined": {
+     "raw": 0.0161,
+     "kind": "noul"
+    },
+    "line_2_unexplained_fee": {
+     "raw": 0.1881,
+     "kind": "noul"
+    },
+    "line_2_rate_differs": {
+     "raw": 0.0622,
+     "kind": "noul"
+    },
+    "line_3_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_3_scope": {
+     "raw": "not_ours",
+     "kind": "choice"
+    },
+    "line_3_completion": {
+     "raw": "none",
+     "kind": "choice"
+    },
+    "line_3_rebilled": {
+     "raw": 0.0687,
+     "kind": "noul"
+    },
+    "line_3_owner_declined": {
+     "raw": 0.012,
+     "kind": "noul"
+    },
+    "line_3_unexplained_fee": {
+     "raw": 0.2183,
+     "kind": "noul"
+    },
+    "line_3_rate_differs": {
+     "raw": 0.0698,
+     "kind": "noul"
+    },
+    "prior_0": {
+     "raw": "unrelated",
+     "kind": "choice"
+    },
+    "prior_1": {
+     "raw": "unrelated",
+     "kind": "choice"
+    },
+    "prior_2": {
+     "raw": "unrelated",
+     "kind": "choice"
+    },
+    "approval_0": {
+     "raw": "approves_as_billed",
+     "kind": "choice"
+    },
+    "sender_0": {
+     "raw": "impostor",
+     "kind": "choice"
+    },
+    "statement_not_invoice": {
+     "raw": 0.0448,
+     "kind": "noul"
+    },
+    "unusual_urgency": {
+     "raw": 0.2821,
+     "kind": "noul"
+    },
+    "bank_change_claimed_in_comms": {
+     "raw": 0.8964,
+     "kind": "noul"
+    },
+    "different_entity": {
+     "raw": 0.079,
+     "kind": "noul"
+    },
+    "price_basis": {
+     "raw": "cap_only",
+     "kind": "choice"
+    },
+    "billed_above_basis": {
+     "raw": 0.0272,
+     "kind": "noul"
+    },
+    "too_ambiguous": {
+     "raw": 0.1384,
+     "kind": "noul"
+    },
+    "unexplained_charges": {
+     "raw": 0.642,
+     "kind": "noul"
+    },
+    "adjustment_duplicates_line": {
+     "raw": 0.2166,
+     "kind": "noul"
+    },
+    "tax_two_rates": {
+     "raw": 0.0852,
+     "kind": "noul"
+    }
+   },
+   "ap_00246": {
+    "line_0_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_0_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_0_completion": {
+     "raw": "not_done",
+     "kind": "choice"
+    },
+    "line_0_rebilled": {
+     "raw": 0.147,
+     "kind": "noul"
+    },
+    "line_0_owner_declined": {
+     "raw": 0.0458,
+     "kind": "noul"
+    },
+    "line_0_unexplained_fee": {
+     "raw": 0.2348,
+     "kind": "noul"
+    },
+    "line_0_rate_differs": {
+     "raw": 0.0776,
+     "kind": "noul"
+    },
+    "line_1_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_1_scope": {
+     "raw": "not_ours",
+     "kind": "choice"
+    },
+    "line_1_completion": {
+     "raw": "not_done",
+     "kind": "choice"
+    },
+    "line_1_rebilled": {
+     "raw": 0.1166,
+     "kind": "noul"
+    },
+    "line_1_owner_declined": {
+     "raw": 0.0517,
+     "kind": "noul"
+    },
+    "line_1_unexplained_fee": {
+     "raw": 0.2906,
+     "kind": "noul"
+    },
+    "line_1_rate_differs": {
+     "raw": 0.0893,
+     "kind": "noul"
+    },
+    "prior_0": {
+     "raw": "unrelated",
+     "kind": "choice"
+    },
+    "prior_1": {
+     "raw": "unrelated",
+     "kind": "choice"
+    },
+    "approval_0": {
+     "raw": "approves_as_billed",
+     "kind": "choice"
+    },
+    "statement_not_invoice": {
+     "raw": 0.0162,
+     "kind": "noul"
+    },
+    "unusual_urgency": {
+     "raw": 0.2136,
+     "kind": "noul"
+    },
+    "bank_change_claimed_in_comms": {
+     "raw": 0.1592,
+     "kind": "noul"
+    },
+    "different_entity": {
+     "raw": 0.0859,
+     "kind": "noul"
+    },
+    "price_basis": {
+     "raw": "unit_rates",
+     "kind": "choice"
+    },
+    "billed_above_basis": {
+     "raw": 0.0687,
+     "kind": "noul"
+    },
+    "too_ambiguous": {
+     "raw": 0.287,
+     "kind": "noul"
+    },
+    "unexplained_charges": {
+     "raw": 0.0357,
+     "kind": "noul"
+    },
+    "tax_two_rates": {
+     "raw": 0.0945,
+     "kind": "noul"
+    }
+   },
+   "ap_00225": {
+    "line_0_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_0_scope": {
+     "raw": "not_ours",
+     "kind": "choice"
+    },
+    "line_0_completion": {
+     "raw": "none",
+     "kind": "choice"
+    },
+    "line_0_rebilled": {
+     "raw": 0.048,
+     "kind": "noul"
+    },
+    "line_0_owner_declined": {
+     "raw": 0.0618,
+     "kind": "noul"
+    },
+    "line_0_unexplained_fee": {
+     "raw": 0.2635,
+     "kind": "noul"
+    },
+    "line_0_rate_differs": {
+     "raw": 0.1956,
+     "kind": "noul"
+    },
+    "line_1_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_1_scope": {
+     "raw": "not_ours",
+     "kind": "choice"
+    },
+    "line_1_completion": {
+     "raw": "none",
+     "kind": "choice"
+    },
+    "line_1_rebilled": {
+     "raw": 0.0647,
+     "kind": "noul"
+    },
+    "line_1_owner_declined": {
+     "raw": 0.036,
+     "kind": "noul"
+    },
+    "line_1_unexplained_fee": {
+     "raw": 0.3993,
+     "kind": "noul"
+    },
+    "line_1_rate_differs": {
+     "raw": 0.1848,
+     "kind": "noul"
+    },
+    "sender_0": {
+     "raw": "plausible",
+     "kind": "choice"
+    },
+    "statement_not_invoice": {
+     "raw": 0.037,
+     "kind": "noul"
+    },
+    "unusual_urgency": {
+     "raw": 0.3243,
+     "kind": "noul"
+    },
+    "bank_change_claimed_in_comms": {
+     "raw": 0.2242,
+     "kind": "noul"
+    },
+    "different_entity": {
+     "raw": 0.9936,
+     "kind": "noul"
+    },
+    "price_basis": {
+     "raw": "period_fee",
+     "kind": "choice"
+    },
+    "billed_above_basis": {
+     "raw": 0.0364,
+     "kind": "noul"
+    },
+    "too_ambiguous": {
+     "raw": 0.1281,
+     "kind": "noul"
+    },
+    "unexplained_charges": {
+     "raw": 0.0532,
+     "kind": "noul"
+    },
+    "tax_two_rates": {
+     "raw": 0.1296,
+     "kind": "noul"
+    }
+   }
+  },
+  "customer_service": {
+   "retention-charged-after-cancel/t0": {
+    "frustration": {
+     "raw": "3",
+     "kind": "score"
+    },
+    "desired_outcome": {
+     "raw": "money_back",
+     "kind": "choice"
+    },
+    "intent": {
+     "raw": "billing_dispute",
+     "kind": "choice"
+    },
+    "urgency": {
+     "raw": "2",
+     "kind": "score"
+    },
+    "threat_legal_regulatory": {
+     "raw": 0.0014,
+     "kind": "noul"
+    },
+    "reports_unauthorized": {
+     "raw": 0.3616,
+     "kind": "noul"
+    },
+    "threat_chargeback_or_public": {
+     "raw": 0.0003,
+     "kind": "noul"
+    },
+    "requests_human": {
+     "raw": 0.0136,
+     "kind": "noul"
+    },
+    "issue_resolved": {
+     "raw": 0.0044,
+     "kind": "noul"
+    },
+    "claims_agent_error": {
+     "raw": 0.9999,
+     "kind": "noul"
+    },
+    "shares_credentials": {
+     "raw": 0.0034,
+     "kind": "noul"
+    },
+    "offers_evidence": {
+     "raw": 0.7985,
+     "kind": "noul"
+    },
+    "already_compensated": {
+     "raw": 0.0025,
+     "kind": "noul"
+    },
+    "amount_vs_record": {
+     "raw": "same",
+     "kind": "choice"
+    },
+    "refund_reason": {
+     "raw": "duplicate_or_erroneous_charge",
+     "kind": "choice"
+    },
+    "hardship": {
+     "raw": "0",
+     "kind": "score"
+    },
+    "open_to_offer": {
+     "raw": 0.399,
+     "kind": "noul"
+    },
+    "churn_risk": {
+     "raw": "0",
+     "kind": "score"
+    },
+    "cancellation_reason": {
+     "raw": "service_failure",
+     "kind": "choice"
+    },
+    "intent_pair": {
+     "raw": "refund_request",
+     "kind": "choice"
+    }
+   },
+   "billing-double-charge-152/t2": {
+    "urgency": {
+     "raw": "1",
+     "kind": "score"
+    },
+    "frustration": {
+     "raw": "2",
+     "kind": "score"
+    },
+    "intent": {
+     "raw": "billing_dispute",
+     "kind": "choice"
+    },
+    "desired_outcome": {
+     "raw": "speak_to_human",
+     "kind": "choice"
+    },
+    "threat_legal_regulatory": {
+     "raw": 0.0026,
+     "kind": "noul"
+    },
+    "threat_chargeback_or_public": {
+     "raw": 0.0015,
+     "kind": "noul"
+    },
+    "reports_unauthorized": {
+     "raw": 0.0953,
+     "kind": "noul"
+    },
+    "shares_credentials": {
+     "raw": 0.0017,
+     "kind": "noul"
+    },
+    "requests_human": {
+     "raw": 0.6953,
+     "kind": "noul"
+    },
+    "issue_resolved": {
+     "raw": 0.0037,
+     "kind": "noul"
+    },
+    "claims_agent_error": {
+     "raw": 0.9529,
+     "kind": "noul"
+    },
+    "refund_reason": {
+     "raw": "duplicate_or_erroneous_charge",
+     "kind": "choice"
+    },
+    "amount_vs_record": {
+     "raw": "same",
+     "kind": "choice"
+    },
+    "already_compensated": {
+     "raw": 0.0054,
+     "kind": "noul"
+    },
+    "offers_evidence": {
+     "raw": 0.0062,
+     "kind": "noul"
+    },
+    "hardship": {
+     "raw": "0",
+     "kind": "score"
+    },
+    "secured_msg_1": {
+     "raw": 0.0007,
+     "kind": "noul"
+    },
+    "refund_done_msg_1": {
+     "raw": 0.9412,
+     "kind": "noul"
+    }
+   },
+   "refunds-espresso-impulse-148/t2": {
+    "desired_outcome": {
+     "raw": "money_back",
+     "kind": "choice"
+    },
+    "frustration": {
+     "raw": "1",
+     "kind": "score"
+    },
+    "intent": {
+     "raw": "refund_request",
+     "kind": "choice"
+    },
+    "reports_unauthorized": {
+     "raw": 0.0001,
+     "kind": "noul"
+    },
+    "threat_legal_regulatory": {
+     "raw": 0.0006,
+     "kind": "noul"
+    },
+    "urgency": {
+     "raw": "2",
+     "kind": "score"
+    },
+    "threat_chargeback_or_public": {
+     "raw": 0.0005,
+     "kind": "noul"
+    },
+    "requests_human": {
+     "raw": 0.0033,
+     "kind": "noul"
+    },
+    "issue_resolved": {
+     "raw": 0.0116,
+     "kind": "noul"
+    },
+    "shares_credentials": {
+     "raw": 0.0007,
+     "kind": "noul"
+    },
+    "claims_agent_error": {
+     "raw": 0.0017,
+     "kind": "noul"
+    },
+    "proposal_reply": {
+     "raw": "accepts",
+     "kind": "choice"
+    },
+    "changes_terms": {
+     "raw": 0.1033,
+     "kind": "noul"
+    },
+    "already_compensated": {
+     "raw": 0.0007,
+     "kind": "noul"
+    },
+    "amount_vs_record": {
+     "raw": "same",
+     "kind": "choice"
+    },
+    "offers_evidence": {
+     "raw": 0.0024,
+     "kind": "noul"
+    },
+    "refund_reason": {
+     "raw": "changed_mind",
+     "kind": "choice"
+    },
+    "hardship": {
+     "raw": "2",
+     "kind": "score"
+    },
+    "refund_done_msg_1": {
+     "raw": 0.0005,
+     "kind": "noul"
+    },
+    "secured_msg_1": {
+     "raw": 0.0001,
+     "kind": "noul"
+    }
+   },
+   "retention-sarcastic-sure-whatever/t0": {
+    "frustration": {
+     "raw": "3",
+     "kind": "score"
+    },
+    "reports_unauthorized": {
+     "raw": 0.0515,
+     "kind": "noul"
+    },
+    "intent": {
+     "raw": "cancel_account",
+     "kind": "choice"
+    },
+    "urgency": {
+     "raw": "1",
+     "kind": "score"
+    },
+    "desired_outcome": {
+     "raw": "money_back",
+     "kind": "choice"
+    },
+    "threat_legal_regulatory": {
+     "raw": 0.0794,
+     "kind": "noul"
+    },
+    "threat_chargeback_or_public": {
+     "raw": 0.1379,
+     "kind": "noul"
+    },
+    "shares_credentials": {
+     "raw": 0.0268,
+     "kind": "noul"
+    },
+    "issue_resolved": {
+     "raw": 0.1602,
+     "kind": "noul"
+    },
+    "requests_human": {
+     "raw": 0.6192,
+     "kind": "noul"
+    },
+    "claims_agent_error": {
+     "raw": 0.3635,
+     "kind": "noul"
+    },
+    "open_to_offer": {
+     "raw": 0.2489,
+     "kind": "noul"
+    },
+    "churn_risk": {
+     "raw": "2",
+     "kind": "score"
+    },
+    "cancellation_reason": {
+     "raw": "service_failure",
+     "kind": "choice"
+    }
+   },
+   "billing-overdraft-no-food/t1": {
+    "threat_chargeback_or_public": {
+     "raw": 0.0002,
+     "kind": "noul"
+    },
+    "threat_legal_regulatory": {
+     "raw": 0.0008,
+     "kind": "noul"
+    },
+    "reports_unauthorized": {
+     "raw": 0.0006,
+     "kind": "noul"
+    },
+    "requests_human": {
+     "raw": 0.5362,
+     "kind": "noul"
+    },
+    "shares_credentials": {
+     "raw": 0.0017,
+     "kind": "noul"
+    },
+    "frustration": {
+     "raw": "1",
+     "kind": "score"
+    },
+    "issue_resolved": {
+     "raw": 0.0019,
+     "kind": "noul"
+    },
+    "urgency": {
+     "raw": "3",
+     "kind": "score"
+    },
+    "claims_agent_error": {
+     "raw": 0.0012,
+     "kind": "noul"
+    },
+    "intent": {
+     "raw": "billing_dispute",
+     "kind": "choice"
+    },
+    "desired_outcome": {
+     "raw": "speak_to_human",
+     "kind": "choice"
+    },
+    "proposal_reply": {
+     "raw": "accepts",
+     "kind": "choice"
+    },
+    "changes_terms": {
+     "raw": 0.0024,
+     "kind": "noul"
+    },
+    "hardship": {
+     "raw": "3",
+     "kind": "score"
+    },
+    "amount_vs_record": {
+     "raw": "same",
+     "kind": "choice"
+    },
+    "already_compensated": {
+     "raw": 0.0013,
+     "kind": "noul"
+    },
+    "offers_evidence": {
+     "raw": 0.0014,
+     "kind": "noul"
+    },
+    "refund_reason": {
+     "raw": "no_reason_given",
+     "kind": "choice"
+    },
+    "secured_msg_0": {
+     "raw": 0.0002,
+     "kind": "noul"
+    },
+    "refund_done_msg_0": {
+     "raw": 0.0007,
+     "kind": "noul"
+    }
+   }
+  }
+ }
+}

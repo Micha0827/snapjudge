@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "snapjudge"
+version = "0.1.0"
+description = "Typed decisions from local Qwen models on Apple Silicon: probabilities read straight from the logits, TypeSafe-compatible API"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = [
+    "mlx-vlm>=0.7.0",
+    "fastapi",
+    "uvicorn",
+    "numpy",
+]
+
+[project.urls]
+Homepage = "https://github.com/Micha0827/snapjudge"
+
+[project.optional-dependencies]
+eval = ["httpx"]
+test = ["pytest", "httpx"]
+
+[project.scripts]
+snapjudge-serve = "snapjudge.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["snapjudge"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

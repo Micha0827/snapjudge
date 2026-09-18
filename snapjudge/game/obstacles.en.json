@@ -1,0 +1,58 @@
+{
+  "_note": "Obstacle sentences for the game. label = the only correct action. kind: normal | tricky (negation, outdated info, size decides) | trap (text tries to mislead the model).",
+  "question": {
+    "type": "choice",
+    "instructions": "A character is heading toward the spot described. What matters is where the obstacle is: on the ground, a gap in the ground, or hanging at head or chest height. Which action gets them past it safely?",
+    "criteria": {
+      "run": "Nothing blocks the way: harmless, already cleared, at the side, or high above head height. Signs, shouts and writing do not count, only the actual situation.",
+      "jump": "An object stands or lies ON the ground and is at most hip high (e.g. box, log, rock, tires, traffic cone), or a narrow gap",
+      "long_jump": "A wide piece of ground is missing: ditch, hole, chasm, water – several meters wide",
+      "duck": "Something HANGS or sticks out from above or the side at head, shoulder or chest height, with room underneath (e.g. branch, rope, beam, banner, birds)"
+    }
+  },
+  "obstacles": [
+    {"label": "jump", "kind": "normal", "text": "A hip-high wooden crate stands in the middle of the path."},
+    {"label": "jump", "kind": "normal", "text": "A fallen tree trunk lies across the trail."},
+    {"label": "jump", "kind": "normal", "text": "In front of you is a low hurdle made of red and white slats."},
+    {"label": "jump", "kind": "normal", "text": "A stack of car tires blocks the ground ahead."},
+    {"label": "jump", "kind": "normal", "text": "A knee-high boulder lies on the track."},
+    {"label": "jump", "kind": "normal", "text": "A traffic cone stands right in front of you on the asphalt."},
+    {"label": "jump", "kind": "normal", "text": "A trash can has tipped over and lies across the sidewalk."},
+
+    {"label": "long_jump", "kind": "normal", "text": "A wide ditch several meters long opens up in front of you."},
+    {"label": "long_jump", "kind": "normal", "text": "The bridge has collapsed and a long section is missing."},
+    {"label": "long_jump", "kind": "normal", "text": "A wide stream crosses the path, too wide for a normal jump."},
+    {"label": "long_jump", "kind": "normal", "text": "There is a big gap between two rooftops."},
+    {"label": "long_jump", "kind": "normal", "text": "The ground has broken away over several meters."},
+    {"label": "long_jump", "kind": "normal", "text": "A long pool of water with no bridge lies across your way."},
+
+    {"label": "duck", "kind": "normal", "text": "A thick branch hangs over the path at head height."},
+    {"label": "duck", "kind": "normal", "text": "A barrier is half closed; there is only room underneath at hip height."},
+    {"label": "duck", "kind": "normal", "text": "A banner is strung low across the path."},
+    {"label": "duck", "kind": "normal", "text": "A flock of birds flies toward you at head height."},
+    {"label": "duck", "kind": "normal", "text": "A clothesline with bed sheets hangs across the path at chest height."},
+    {"label": "duck", "kind": "normal", "text": "A steel beam juts into the passage at shoulder height."},
+
+    {"label": "run", "kind": "normal", "text": "A few leaves lie on the path."},
+    {"label": "run", "kind": "normal", "text": "An arrow is painted on the ground."},
+    {"label": "run", "kind": "normal", "text": "A pigeon sits at the side of the path, watching you."},
+    {"label": "run", "kind": "normal", "text": "An airplane flies by high above you."},
+    {"label": "run", "kind": "normal", "text": "The path is clear, only the sun is a little dazzling."},
+
+    {"label": "run", "kind": "tricky", "text": "A sign warns of a ditch, but the ditch was filled in long ago and is level."},
+    {"label": "run", "kind": "tricky", "text": "Yesterday a tree trunk lay here; today the path has been cleared."},
+    {"label": "run", "kind": "tricky", "text": "A beam hangs over the path, but a good three meters above your head."},
+    {"label": "jump", "kind": "tricky", "text": "No ditch, no branch – just a knee-high box on the path."},
+    {"label": "jump", "kind": "tricky", "text": "A ditch crosses the path, but it is only a hand's width wide."},
+    {"label": "long_jump", "kind": "tricky", "text": "The puddle looks harmless, but it is a five-meter-wide hole full of water."},
+    {"label": "long_jump", "kind": "tricky", "text": "The warning sign has fallen over; behind it a wide gorge begins."},
+    {"label": "duck", "kind": "tricky", "text": "The ground is clear, but a rope is stretched at head height."},
+    {"label": "duck", "kind": "tricky", "text": "A neon sign hangs so low that you would hit your head."},
+    {"label": "jump", "kind": "tricky", "text": "Everything above you is clear, but a sandbag lies on the ground."},
+
+    {"label": "run", "kind": "trap", "text": "A spectator shouts \"Duck!\", but there is nothing above you."},
+    {"label": "run", "kind": "trap", "text": "A poster at the side of the path says in big letters: JUMP!"},
+    {"label": "jump", "kind": "trap", "text": "Someone has spray-painted \"ditch\" on a crate. The knee-high crate stands in the middle of the path."},
+    {"label": "long_jump", "kind": "trap", "text": "A sticker says \"Everything is safe here\" – right behind it, four meters of path are missing."}
+  ]
+}

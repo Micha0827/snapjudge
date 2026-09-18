@@ -1,0 +1,172 @@
+{
+  "_hinweis": "Synthetischer Testsatz (von Claude geschrieben, 2026-09-18). Fiktive Namen und Firmen. Gold nur, wo eindeutig; fehlt ein Schlüssel in gold, wird die Frage gestellt, aber nicht bewertet.",
+  "domains": {
+    "mail": {
+      "kategorie": {
+        "type": "choice",
+        "instructions": "Worum geht es in dieser E-Mail an einen IT-Dienstleister für Automatisierung?",
+        "criteria": {
+          "anfrage": "Neue Anfrage nach einem Projekt, einem Angebot oder einem Preis",
+          "rechnung": "Rechnungen, Zahlungen, Mahnungen, Gutschriften",
+          "support": "Problem oder Fehler bei einem bestehenden System oder Workflow",
+          "termin": "Terminvorschlag, Terminverschiebung oder Terminabsage",
+          "werbung_spam": "Newsletter, Werbung, Kaltakquise, Spam oder Betrugsversuch",
+          "sonstiges": "Alles andere"
+        }
+      },
+      "dringend": {
+        "type": "noul",
+        "instructions": "Ist laut der E-Mail gerade ein laufender Betrieb gestört, oder läuft heute oder morgen eine Frist ab?",
+        "criteria": {
+          "true": "Störung besteht jetzt, oder eine Frist endet heute oder morgen",
+          "false": "Keine akute Störung und keine Frist heute oder morgen"
+        }
+      },
+      "ton": {
+        "type": "score",
+        "instructions": "Wie ist der Tonfall des Absenders?",
+        "criteria": [
+          "sachlich oder freundlich",
+          "genervt, ungeduldig oder gestresst",
+          "wütend, vorwurfsvoll oder drohend"
+        ]
+      },
+      "phishing": {
+        "type": "noul",
+        "instructions": "Ist die E-Mail ein Phishing- oder Betrugsversuch?",
+        "criteria": {
+          "true": "Gefälschter Absender oder Link, will Zugangsdaten oder Geld erschleichen",
+          "false": "Echte E-Mail eines Kunden, Partners, Dienstleisters oder Newsletters"
+        }
+      }
+    },
+    "mieter": {
+      "anliegen": {
+        "type": "choice",
+        "instructions": "Welches Anliegen hat der Mieter in dieser Nachricht an die Hausverwaltung?",
+        "criteria": {
+          "reparatur": "Defekt oder Schaden in der Wohnung oder im Haus",
+          "nebenkosten": "Nebenkostenabrechnung, Vorauszahlungen, Heiz- oder Wasserkosten",
+          "zahlung": "Miete, Kaution, Lastschrift oder Zahlungsprobleme",
+          "kuendigung": "Kündigung des Mietverhältnisses oder Auszug",
+          "nachbarschaft": "Lärm, Streit oder Probleme mit anderen Mietern",
+          "sonstiges": "Alles andere"
+        }
+      },
+      "notfall": {
+        "type": "noul",
+        "instructions": "Droht akut ein Schaden an Personen oder am Gebäude, sodass sofort jemand handeln muss?",
+        "criteria": {
+          "true": "Zum Beispiel Wasserrohrbruch, Gasgeruch, Heizungsausfall bei Frost, Einbruch",
+          "false": "Alles, was bis zum nächsten Werktag warten kann"
+        }
+      }
+    },
+    "konto": {
+      "kategorie": {
+        "type": "choice",
+        "instructions": "Zu welcher Buchungskategorie gehört dieser Kontoumsatz eines kleinen IT-Unternehmens?",
+        "criteria": {
+          "software_abo": "Software, SaaS, Cloud-Dienste, Hosting, Lizenzen, API-Guthaben",
+          "telefon_internet": "Mobilfunk, Festnetz, Internetanschluss",
+          "miete_buero": "Büromiete, Coworking, Nebenkosten des Büros",
+          "versicherung": "Versicherungsbeiträge",
+          "steuern": "Steuerzahlungen an Finanzamt oder Gemeinde",
+          "bewirtung": "Restaurant, Café, Geschäftsessen",
+          "hardware": "Computer, Monitore, Zubehör, Elektronik",
+          "reise": "Bahn, Flug, Hotel, Taxi, Parken",
+          "kundenzahlung": "Zahlungseingang eines Kunden",
+          "sonstiges": "Alles andere"
+        }
+      }
+    }
+  },
+  "items": [
+    {"id": "mail-01", "domain": "mail", "state": "Hallo Herr Wagner,\n\nwir sind ein Steuerbüro mit 12 Mitarbeitern und möchten unsere Belegablage automatisieren. Wir nutzen DATEV und bekommen täglich rund 80 Belege per Mail. Könnten Sie uns ein Angebot machen? Gerne auch vorher ein kurzes Kennenlerngespräch.\n\nViele Grüße\nSabine Albers\nKanzlei Albers & Partner",
+     "gold": {"kategorie": "anfrage", "dringend": false, "ton": 0, "phishing": false}},
+    {"id": "mail-02", "domain": "mail", "state": "Guten Morgen,\n\nseit heute Nacht läuft unser Rechnungs-Workflow in n8n nicht mehr. Es kommen keine Rechnungen mehr in sevDesk an, und heute Mittag ist Zahlungslauf. Bitte melden Sie sich so schnell wie möglich!\n\nGruß\nThomas Wendt",
+     "gold": {"kategorie": "support", "dringend": true, "ton": 1, "phishing": false}},
+    {"id": "mail-03", "domain": "mail", "state": "Sehr geehrte Damen und Herren,\n\nunsere Rechnung Nr. 2026-0412 über 1.428,00 € ist trotz Zahlungserinnerung weiterhin offen. Wir bitten um Ausgleich innerhalb von 14 Tagen.\n\nMit freundlichen Grüßen\nBuchhaltung Hosting Nord GmbH",
+     "gold": {"kategorie": "rechnung", "dringend": false, "ton": 0, "phishing": false}},
+    {"id": "mail-04", "domain": "mail", "state": "Ich bin echt sauer. Heute ist der Import schon wieder abgebrochen, das ist das DRITTE Mal in zwei Wochen. Wir zahlen jeden Monat für die Wartung, und nichts funktioniert. Wenn das nicht endlich dauerhaft gelöst wird, kündigen wir den Vertrag.\n\nM. Brandt",
+     "gold": {"kategorie": "support", "dringend": true, "ton": 2, "phishing": false}},
+    {"id": "mail-05", "domain": "mail", "state": "Hallo Daniel,\n\nkönnen wir unseren Call von Dienstag auf Donnerstag 14 Uhr schieben? Bei mir ist etwas dazwischengekommen.\n\nLG Jana",
+     "gold": {"kategorie": "termin", "dringend": false, "ton": 0, "phishing": false}},
+    {"id": "mail-06", "domain": "mail", "state": "Die 5 besten KI-Tools für Ihr Marketing – jetzt im kostenlosen Webinar!\n\nAm 30. September zeigen wir Ihnen live, wie Sie mit KI Zeit sparen. Melden Sie sich jetzt an, die Plätze sind begrenzt.\n\nSie erhalten diesen Newsletter, weil Sie sich auf marketing-insider.de angemeldet haben. Abmelden",
+     "gold": {"kategorie": "werbung_spam", "dringend": false, "ton": 0, "phishing": false}},
+    {"id": "mail-07", "domain": "mail", "state": "Von: Microsoft 365 Sicherheit <security@m1crosoft-verify.co>\n\nIhr Microsoft 365 Konto wird heute gesperrt. Bestätigen Sie jetzt Ihre Zugangsdaten unter http://m1crosoft-verify.co/login, sonst gehen alle Ihre Daten verloren.\n\nIhr Microsoft-Team",
+     "gold": {"kategorie": "werbung_spam", "phishing": true}},
+    {"id": "mail-08", "domain": "mail", "state": "Von: DHL Paket <noreply@dhl-paket-zoll.info>\n\nIhr Paket konnte nicht zugestellt werden, da eine Zollgebühr von 1,99 € offen ist. Bitte zahlen Sie die Gebühr innerhalb von 24 Stunden unter https://dhl-paket-zoll.info/zahlung, sonst wird die Sendung zurückgeschickt.",
+     "gold": {"kategorie": "werbung_spam", "phishing": true}},
+    {"id": "mail-09", "domain": "mail", "state": "Von: Serverhaus AG <rechnung@serverhaus.de>\n\nGuten Tag,\n\nIhre Rechnung für September 2026 ist verfügbar. Rechnungsbetrag: 23,80 €. Sie finden sie in Ihrem Kundenkonto. Der Betrag wird wie gewohnt per Lastschrift eingezogen.\n\nIhr Serverhaus-Team",
+     "gold": {"kategorie": "rechnung", "dringend": false, "ton": 0, "phishing": false}},
+    {"id": "mail-10", "domain": "mail", "state": "Hallo Herr Wagner,\n\nich bin auf Ihr LinkedIn-Profil gestoßen. Wir helfen IT-Dienstleistern, 30 % mehr Leads über LinkedIn zu gewinnen – vollautomatisch. Hätten Sie nächste Woche 15 Minuten für ein kurzes Gespräch?\n\nBeste Grüße\nKevin Maurer, GrowthLab Leads",
+     "gold": {"kategorie": "werbung_spam", "dringend": false, "ton": 0, "phishing": false}},
+    {"id": "mail-11", "domain": "mail", "state": "Hi Daniel,\n\nder Buchhaltungs-Workflow läuft super, danke nochmal! Wir überlegen jetzt, auch die Eingangsrechnungen unserer zweiten Firma anzubinden. Was würde das ungefähr kosten?\n\nViele Grüße\nPeter",
+     "gold": {"kategorie": "anfrage", "dringend": false, "ton": 0, "phishing": false}},
+    {"id": "mail-12", "domain": "mail", "state": "Na toll. Schon wieder keine Rechnung bekommen, obwohl ich vor zwei Wochen nachgefragt habe. Super Service, wirklich. Ich brauche die Rechnung für August für meine Buchhaltung.\n\nK. Hoffmann",
+     "gold": {"kategorie": "rechnung", "dringend": false, "ton": 1, "phishing": false}},
+    {"id": "mail-13", "domain": "mail", "state": "Hallo Herr Wagner,\n\nleider muss ich unseren Termin morgen absagen, ich liege krank im Bett. Ich melde mich nächste Woche für einen neuen Termin.\n\nFreundliche Grüße\nAndrea Keller",
+     "gold": {"kategorie": "termin", "dringend": false, "ton": 0, "phishing": false}},
+    {"id": "mail-14", "domain": "mail", "state": "Hallo,\n\nkurze Info: Unsere Paperless-Instanz ist seit heute früh nicht erreichbar, im Browser kommt Fehler 502. Kein Stress, aber es wäre gut, wenn Sie heute noch draufschauen könnten. Danke!\n\nViele Grüße\nLena Brandes",
+     "gold": {"kategorie": "support", "dringend": true, "ton": 0, "phishing": false}},
+    {"id": "mail-15", "domain": "mail", "state": "Hallo Daniel,\n\ndanke für den tollen Vortrag gestern beim IHK-Stammtisch! Wie besprochen hier der Titel des Buchs, das ich erwähnt habe: „Die Kunst des klaren Denkens“. Vielleicht sieht man sich beim nächsten Treffen.\n\nGruß\nFrank",
+     "gold": {"kategorie": "sonstiges", "dringend": false, "ton": 0, "phishing": false}},
+    {"id": "mail-16", "domain": "mail", "state": "Sehr geehrter Herr Wagner,\n\nanbei erhalten Sie die Gutschrift GS-2026-118 über 250,00 € für die doppelt berechnete Lizenz. Der Betrag wird mit der nächsten Rechnung verrechnet.\n\nMit freundlichen Grüßen\nSoftwarevertrieb Weber KG",
+     "gold": {"kategorie": "rechnung", "dringend": false, "ton": 0, "phishing": false}},
+    {"id": "mail-17", "domain": "mail", "state": "Hallo Herr Wagner,\n\nkurze Erinnerung: Die Unterlagen für unseren Förderantrag müssen bis morgen 12 Uhr im Portal hochgeladen sein, sonst verfällt der Antrag. Bitte schicken Sie mir noch die Projektbeschreibung.\n\nViele Grüße\nClaudia Berger",
+     "gold": {"kategorie": "sonstiges", "dringend": true, "ton": 0, "phishing": false}},
+
+    {"id": "mieter-01", "domain": "mieter", "state": "In der Küche tropft der Wasserhahn seit ein paar Tagen. Nicht schlimm, aber es nervt. Können Sie einen Handwerker schicken?",
+     "gold": {"anliegen": "reparatur", "notfall": false}},
+    {"id": "mieter-02", "domain": "mieter", "state": "Hilfe!!! Im Bad ist ein Rohr geplatzt, das Wasser läuft schon in den Flur. Den Haupthahn finde ich nicht!",
+     "gold": {"anliegen": "reparatur", "notfall": true}},
+    {"id": "mieter-03", "domain": "mieter", "state": "Ich habe die Nebenkostenabrechnung 2025 erhalten. Die Heizkosten sind fast doppelt so hoch wie letztes Jahr, obwohl wir weniger geheizt haben. Bitte schicken Sie mir die Belege zur Einsicht.",
+     "gold": {"anliegen": "nebenkosten", "notfall": false}},
+    {"id": "mieter-04", "domain": "mieter", "state": "Hiermit kündige ich meinen Mietvertrag für die Wohnung Lindenstraße 4, 2. OG links, fristgerecht zum 31.12.2026.\n\nMit freundlichen Grüßen\nJonas Richter",
+     "gold": {"anliegen": "kuendigung", "notfall": false}},
+    {"id": "mieter-05", "domain": "mieter", "state": "Die Nachbarn über uns feiern jedes Wochenende bis 3 Uhr nachts. Wir haben schon mehrfach geklopft und geklingelt. Können Sie da bitte etwas unternehmen?",
+     "gold": {"anliegen": "nachbarschaft", "notfall": false}},
+    {"id": "mieter-06", "domain": "mieter", "state": "Im Treppenhaus riecht es seit einer Stunde stark nach Gas. Ich traue mich nicht, das Licht anzumachen. Was soll ich tun?",
+     "gold": {"anliegen": "reparatur", "notfall": true}},
+    {"id": "mieter-07", "domain": "mieter", "state": "Meine Miete für September wurde doppelt abgebucht. Bitte überweisen Sie den zu viel eingezogenen Betrag zurück.",
+     "gold": {"anliegen": "zahlung", "notfall": false}},
+    {"id": "mieter-08", "domain": "mieter", "state": "Ich habe leider gerade meine Arbeit verloren und kann die Miete für Oktober erst Mitte des Monats zahlen. Wäre das in Ordnung?",
+     "gold": {"anliegen": "zahlung", "notfall": false}},
+    {"id": "mieter-09", "domain": "mieter", "state": "Seit gestern Abend ist die Heizung komplett aus. Draußen sind minus 8 Grad, und wir haben ein Baby in der Wohnung.",
+     "gold": {"anliegen": "reparatur", "notfall": true}},
+    {"id": "mieter-10", "domain": "mieter", "state": "Können Sie mir bitte eine Wohnungsgeberbestätigung für das Einwohnermeldeamt ausstellen? Ich bin am 1. September eingezogen.",
+     "gold": {"anliegen": "sonstiges", "notfall": false}},
+    {"id": "mieter-11", "domain": "mieter", "state": "Die Haustür schließt nicht mehr, man kann sie einfach aufdrücken. Letzte Nacht waren Fremde im Keller, bei zwei Parteien wurden die Kellerabteile aufgebrochen.",
+     "gold": {"anliegen": "reparatur", "notfall": true}},
+    {"id": "mieter-12", "domain": "mieter", "state": "Der Rauchmelder im Schlafzimmer piept seit heute alle paar Minuten kurz. Ich glaube, die Batterie ist leer. Wer kümmert sich darum?",
+     "gold": {"anliegen": "reparatur", "notfall": false}},
+    {"id": "mieter-13", "domain": "mieter", "state": "Der Hund von Familie Özdemir bellt jeden Tag stundenlang, wenn die beiden arbeiten sind. Außerdem liegt ständig Hundekot im Hof.",
+     "gold": {"anliegen": "nachbarschaft", "notfall": false}},
+    {"id": "mieter-14", "domain": "mieter", "state": "Ich ziehe Ende November aus. Wann kann die Wohnungsübergabe stattfinden, und wann bekomme ich meine Kaution zurück?",
+     "gold": {"anliegen": "kuendigung", "notfall": false}},
+    {"id": "mieter-15", "domain": "mieter", "state": "Die monatliche Vorauszahlung für die Nebenkosten ist mir zu hoch. Können wir sie ab Januar auf 180 € senken?",
+     "gold": {"anliegen": "nebenkosten", "notfall": false}},
+
+    {"id": "konto-01", "domain": "konto", "state": {"betrag": -23.80, "gegenpartei": "Serverhaus AG", "verwendungszweck": "Rechnung R-2026-09-88213 Cloud Server CX32"}, "gold": {"kategorie": "software_abo"}},
+    {"id": "konto-02", "domain": "konto", "state": {"betrag": -39.99, "gegenpartei": "Telekom Deutschland GmbH", "verwendungszweck": "Mobilfunk Rechnung 09/2026 Kd-Nr 4711"}, "gold": {"kategorie": "telefon_internet"}},
+    {"id": "konto-03", "domain": "konto", "state": {"betrag": 2380.00, "gegenpartei": "Kanzlei Albers & Partner", "verwendungszweck": "RE 2026-031 Automatisierung Belegablage"}, "gold": {"kategorie": "kundenzahlung"}},
+    {"id": "konto-04", "domain": "konto", "state": {"betrag": -1850.00, "gegenpartei": "Finanzamt Musterstadt", "verwendungszweck": "USt-VZ 08/2026 St-Nr 123/456/78901"}, "gold": {"kategorie": "steuern"}},
+    {"id": "konto-05", "domain": "konto", "state": {"betrag": -67.40, "gegenpartei": "Ristorante Da Luca", "verwendungszweck": "Kartenzahlung 17.09. 20:14"}, "gold": {"kategorie": "bewirtung"}},
+    {"id": "konto-06", "domain": "konto", "state": {"betrag": -1299.00, "gegenpartei": "Cyberport GmbH", "verwendungszweck": "Bestellung 60021934 MacBook Air 15"}, "gold": {"kategorie": "hardware"}},
+    {"id": "konto-07", "domain": "konto", "state": {"betrag": -89.90, "gegenpartei": "DB Fernverkehr AG", "verwendungszweck": "Online-Ticket Hamburg-Berlin 22.09."}, "gold": {"kategorie": "reise"}},
+    {"id": "konto-08", "domain": "konto", "state": {"betrag": -650.00, "gegenpartei": "Hanse Coworking GmbH", "verwendungszweck": "Miete Arbeitsplatz Oktober 2026"}, "gold": {"kategorie": "miete_buero"}},
+    {"id": "konto-09", "domain": "konto", "state": {"betrag": -34.51, "gegenpartei": "Allianz Versicherungs-AG", "verwendungszweck": "Beitrag Betriebshaftpflicht 4. Quartal"}, "gold": {"kategorie": "versicherung"}},
+    {"id": "konto-10", "domain": "konto", "state": {"betrag": -20.00, "gegenpartei": "OpenRouter Inc", "verwendungszweck": "Credits top-up"}, "gold": {"kategorie": "software_abo"}},
+    {"id": "konto-11", "domain": "konto", "state": {"betrag": -12.50, "gegenpartei": "PARK ONE GmbH", "verwendungszweck": "Parkhaus Hauptbahnhof"}, "gold": {"kategorie": "reise"}},
+    {"id": "konto-12", "domain": "konto", "state": {"betrag": -44.95, "gegenpartei": "Vodafone GmbH", "verwendungszweck": "Kabel Internet 1000 Kd 99812"}, "gold": {"kategorie": "telefon_internet"}},
+    {"id": "konto-13", "domain": "konto", "state": {"betrag": 4760.00, "gegenpartei": "Lindner Logistik GmbH", "verwendungszweck": "Rechnung 2026-044 n8n Wartung Q3"}, "gold": {"kategorie": "kundenzahlung"}},
+    {"id": "konto-14", "domain": "konto", "state": {"betrag": -412.00, "gegenpartei": "Stadtkasse Musterstadt", "verwendungszweck": "Gewerbesteuer Vorauszahlung III/2026"}, "gold": {"kategorie": "steuern"}},
+    {"id": "konto-15", "domain": "konto", "state": {"betrag": -18.90, "gegenpartei": "Amazon EU S.a.r.l.", "verwendungszweck": "302-1234567 USB-C Hub"}, "gold": {"kategorie": "hardware"}},
+    {"id": "konto-16", "domain": "konto", "state": {"betrag": -250.00, "gegenpartei": "Daniel Wagner", "verwendungszweck": "Privatentnahme"}, "gold": {"kategorie": "sonstiges"}},
+    {"id": "konto-17", "domain": "konto", "state": {"betrag": -22.00, "gegenpartei": "Café Rösterei Nord", "verwendungszweck": "Kartenzahlung Kundentermin"}, "gold": {"kategorie": "bewirtung"}},
+    {"id": "konto-18", "domain": "konto", "state": {"betrag": -119.00, "gegenpartei": "GitHub, Inc.", "verwendungszweck": "GitHub Team 10 seats"}, "gold": {"kategorie": "software_abo"}},
+    {"id": "konto-19", "domain": "konto", "state": {"betrag": -156.00, "gegenpartei": "HUK-COBURG", "verwendungszweck": "KFZ-Versicherung Jahresbeitrag Anteil"}, "gold": {"kategorie": "versicherung"}},
+    {"id": "konto-20", "domain": "konto", "state": {"betrag": -212.40, "gegenpartei": "Hotel Spreeblick Garni", "verwendungszweck": "2 Nächte 22.-24.09. Kundenworkshop"}, "gold": {"kategorie": "reise"}}
+  ]
+}

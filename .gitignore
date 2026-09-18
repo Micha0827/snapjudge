@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+dist/
+build/
+.DS_Store
+.claude/
+_privat/
+results/*.log
+calibration.json

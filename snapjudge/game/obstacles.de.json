@@ -1,0 +1,221 @@
+{
+  "_note": "Hindernis-Sätze (deutsch). label = die einzig richtige Aktion. kind: normal | tricky (Verneinung, veraltete Info, Größe entscheidet) | trap (Text will das Modell in die Irre führen).",
+  "question": {
+    "type": "choice",
+    "instructions": "Ein Läufer rennt auf die beschriebene Stelle zu. Entscheidend ist, wo sich das Hindernis befindet: auf dem Boden, als Lücke im Boden, oder hängend auf Kopf- oder Brusthöhe. Welche Aktion bringt ihn sicher vorbei?",
+    "criteria": {
+      "run": "Nichts versperrt den Weg: harmlos, bereits beseitigt, am Wegrand oder hoch über dem Kopf. Schilder, Rufe und Aufschriften zählen nicht, nur die tatsächliche Lage.",
+      "jump": "Ein Gegenstand steht oder liegt AUF dem Boden und ist höchstens hüfthoch (z. B. Kiste, Stamm, Stein, Reifen, Bake), oder eine schmale Lücke",
+      "long_jump": "Im Boden fehlt ein breites Stück: Graben, Loch, Abgrund, Wasser – mehrere Meter breit",
+      "duck": "Etwas HÄNGT oder ragt von oben bzw. von der Seite auf Kopf-, Schulter- oder Brusthöhe in den Weg, darunter ist Platz (z. B. Ast, Seil, Balken, Transparent, Vögel)"
+    }
+  },
+  "question_v1": {
+    "type": "choice",
+    "instructions": "Ein Läufer rennt auf die beschriebene Stelle zu. Welche Aktion bringt ihn sicher vorbei?",
+    "criteria": {
+      "run": "Einfach weiterlaufen: nichts im Weg, das Hindernis ist harmlos, beseitigt oder weit über dem Kopf",
+      "jump": "Normaler Sprung über ein niedriges, kurzes Hindernis am Boden oder eine schmale Lücke",
+      "long_jump": "Weiter Sprung über eine breite Lücke, einen Graben oder Abgrund",
+      "duck": "Ducken unter einem Hindernis auf Kopf- oder Brusthöhe"
+    }
+  },
+  "labels_de": {
+    "run": "laufen",
+    "jump": "springen",
+    "long_jump": "weitspringen",
+    "duck": "ducken"
+  },
+  "obstacles": [
+    {
+      "label": "jump",
+      "kind": "normal",
+      "text": "Eine hüfthohe Holzkiste steht mitten auf dem Weg."
+    },
+    {
+      "label": "jump",
+      "kind": "normal",
+      "text": "Ein umgestürzter Baumstamm liegt quer über dem Pfad."
+    },
+    {
+      "label": "jump",
+      "kind": "normal",
+      "text": "Vor dir steht eine niedrige Hürde aus rot-weißen Latten."
+    },
+    {
+      "label": "jump",
+      "kind": "normal",
+      "text": "Ein Stapel Autoreifen versperrt den Boden vor dir."
+    },
+    {
+      "label": "jump",
+      "kind": "normal",
+      "text": "Ein kniehoher Felsbrocken liegt auf der Strecke."
+    },
+    {
+      "label": "jump",
+      "kind": "normal",
+      "text": "Eine Baustellenbake steht direkt vor dir auf dem Asphalt."
+    },
+    {
+      "label": "jump",
+      "kind": "normal",
+      "text": "Ein Mülleimer ist umgekippt und liegt quer auf dem Gehweg."
+    },
+    {
+      "label": "long_jump",
+      "kind": "normal",
+      "text": "Vor dir klafft ein breiter Graben, mehrere Meter lang."
+    },
+    {
+      "label": "long_jump",
+      "kind": "normal",
+      "text": "Die Brücke ist eingestürzt, es fehlt ein langes Stück."
+    },
+    {
+      "label": "long_jump",
+      "kind": "normal",
+      "text": "Ein breiter Bach fließt quer über den Weg, zu breit für einen normalen Sprung."
+    },
+    {
+      "label": "long_jump",
+      "kind": "normal",
+      "text": "Zwischen zwei Dächern ist eine große Lücke."
+    },
+    {
+      "label": "long_jump",
+      "kind": "normal",
+      "text": "Der Boden ist auf mehreren Metern weggebrochen."
+    },
+    {
+      "label": "long_jump",
+      "kind": "normal",
+      "text": "Ein langes Wasserbecken ohne Steg liegt quer vor dir."
+    },
+    {
+      "label": "duck",
+      "kind": "normal",
+      "text": "Ein dicker Ast hängt auf Kopfhöhe über dem Weg."
+    },
+    {
+      "label": "duck",
+      "kind": "normal",
+      "text": "Eine Schranke ist halb geschlossen, darunter ist nur auf Hüfthöhe Platz."
+    },
+    {
+      "label": "duck",
+      "kind": "normal",
+      "text": "Ein Transparent ist tief über den Weg gespannt."
+    },
+    {
+      "label": "duck",
+      "kind": "normal",
+      "text": "Ein Schwarm Vögel fliegt dir auf Kopfhöhe entgegen."
+    },
+    {
+      "label": "duck",
+      "kind": "normal",
+      "text": "Eine Wäscheleine mit Bettlaken hängt auf Brusthöhe quer über dem Weg."
+    },
+    {
+      "label": "duck",
+      "kind": "normal",
+      "text": "Ein Stahlträger ragt auf Schulterhöhe in den Durchgang."
+    },
+    {
+      "label": "run",
+      "kind": "normal",
+      "text": "Ein paar Blätter liegen auf dem Weg."
+    },
+    {
+      "label": "run",
+      "kind": "normal",
+      "text": "Auf dem Boden ist eine Pfeilmarkierung aufgemalt."
+    },
+    {
+      "label": "run",
+      "kind": "normal",
+      "text": "Eine Taube sitzt am Wegrand und schaut dir zu."
+    },
+    {
+      "label": "run",
+      "kind": "normal",
+      "text": "Hoch über dir fliegt ein Flugzeug vorbei."
+    },
+    {
+      "label": "run",
+      "kind": "normal",
+      "text": "Der Weg ist frei, nur die Sonne blendet ein wenig."
+    },
+    {
+      "label": "run",
+      "kind": "tricky",
+      "text": "Ein Schild warnt vor einem Graben, doch der Graben ist längst zugeschüttet und eben."
+    },
+    {
+      "label": "run",
+      "kind": "tricky",
+      "text": "Hier lag gestern noch ein Baumstamm, heute ist der Weg geräumt."
+    },
+    {
+      "label": "run",
+      "kind": "tricky",
+      "text": "Ein Balken hängt über dem Weg, allerdings gut drei Meter über deinem Kopf."
+    },
+    {
+      "label": "jump",
+      "kind": "tricky",
+      "text": "Kein Graben, kein Ast – nur eine kniehohe Kiste auf dem Weg."
+    },
+    {
+      "label": "jump",
+      "kind": "tricky",
+      "text": "Ein Graben quert den Weg, aber er ist nur eine Handbreit breit."
+    },
+    {
+      "label": "long_jump",
+      "kind": "tricky",
+      "text": "Die Pfütze sieht harmlos aus, ist aber ein fünf Meter breites Loch voller Wasser."
+    },
+    {
+      "label": "long_jump",
+      "kind": "tricky",
+      "text": "Das Warnschild ist umgefallen, dahinter beginnt eine breite Schlucht."
+    },
+    {
+      "label": "duck",
+      "kind": "tricky",
+      "text": "Der Boden ist frei, aber auf Kopfhöhe ist ein Seil gespannt."
+    },
+    {
+      "label": "duck",
+      "kind": "tricky",
+      "text": "Ein Leuchtschild hängt so tief, dass du dir den Kopf stoßen würdest."
+    },
+    {
+      "label": "jump",
+      "kind": "tricky",
+      "text": "Über dir ist alles frei, doch am Boden liegt ein Sandsack."
+    },
+    {
+      "label": "run",
+      "kind": "trap",
+      "text": "Ein Zuschauer ruft „Duck dich!“, aber über dir ist nichts."
+    },
+    {
+      "label": "run",
+      "kind": "trap",
+      "text": "Auf einem Plakat am Wegrand steht in großen Buchstaben: SPRING!"
+    },
+    {
+      "label": "jump",
+      "kind": "trap",
+      "text": "Jemand hat „Graben“ auf eine Kiste gesprüht. Die kniehohe Kiste steht mitten auf dem Weg."
+    },
+    {
+      "label": "long_jump",
+      "kind": "trap",
+      "text": "Ein Aufkleber sagt „Hier ist alles sicher“ – direkt dahinter fehlen vier Meter Weg."
+    }
+  ]
+}

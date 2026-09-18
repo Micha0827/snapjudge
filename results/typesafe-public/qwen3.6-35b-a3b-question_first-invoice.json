@@ -1,0 +1,780 @@
+{
+ "model": "Qwen3.6-35B-A3B-4bit",
+ "timings": {
+  "invoice_processing/ap_00149": {
+   "total_ms": 786729.3,
+   "questions": 48,
+   "input_tokens": 531082
+  },
+  "invoice_processing/ap_00198": {
+   "total_ms": 538805.1,
+   "questions": 43,
+   "input_tokens": 368898
+  },
+  "invoice_processing/ap_00074": {
+   "total_ms": 632484.4,
+   "questions": 43,
+   "input_tokens": 426549
+  },
+  "invoice_processing/ap_00246": {
+   "total_ms": 215948.9,
+   "questions": 26,
+   "input_tokens": 164979
+  },
+  "invoice_processing/ap_00225": {
+   "total_ms": 197776.6,
+   "questions": 24,
+   "input_tokens": 150286
+  }
+ },
+ "answers": {
+  "invoice_processing": {
+   "ap_00149": {
+    "line_0_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_0_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_0_completion": {
+     "raw": "confirmed",
+     "kind": "choice"
+    },
+    "line_0_rebilled": {
+     "raw": 0.0108,
+     "kind": "noul"
+    },
+    "line_0_owner_declined": {
+     "raw": 0.0001,
+     "kind": "noul"
+    },
+    "line_0_unexplained_fee": {
+     "raw": 0.0172,
+     "kind": "noul"
+    },
+    "line_0_rate_differs": {
+     "raw": 0.0006,
+     "kind": "noul"
+    },
+    "line_1_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_1_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_1_completion": {
+     "raw": "confirmed",
+     "kind": "choice"
+    },
+    "line_1_rebilled": {
+     "raw": 0.0086,
+     "kind": "noul"
+    },
+    "line_1_owner_declined": {
+     "raw": 0.0004,
+     "kind": "noul"
+    },
+    "line_1_unexplained_fee": {
+     "raw": 0.0443,
+     "kind": "noul"
+    },
+    "line_1_rate_differs": {
+     "raw": 0.0006,
+     "kind": "noul"
+    },
+    "line_2_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_2_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_2_completion": {
+     "raw": "confirmed",
+     "kind": "choice"
+    },
+    "line_2_rebilled": {
+     "raw": 0.0173,
+     "kind": "noul"
+    },
+    "line_2_owner_declined": {
+     "raw": 0.0005,
+     "kind": "noul"
+    },
+    "line_2_unexplained_fee": {
+     "raw": 0.0821,
+     "kind": "noul"
+    },
+    "line_2_rate_differs": {
+     "raw": 0.0005,
+     "kind": "noul"
+    },
+    "line_3_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_3_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_3_completion": {
+     "raw": "vendor_only",
+     "kind": "choice"
+    },
+    "line_3_rebilled": {
+     "raw": 0.0067,
+     "kind": "noul"
+    },
+    "line_3_owner_declined": {
+     "raw": 0.0004,
+     "kind": "noul"
+    },
+    "line_3_unexplained_fee": {
+     "raw": 0.0759,
+     "kind": "noul"
+    },
+    "line_3_rate_differs": {
+     "raw": 0.0004,
+     "kind": "noul"
+    },
+    "line_4_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_4_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_4_completion": {
+     "raw": "confirmed",
+     "kind": "choice"
+    },
+    "line_4_rebilled": {
+     "raw": 0.0104,
+     "kind": "noul"
+    },
+    "line_4_owner_declined": {
+     "raw": 0.0004,
+     "kind": "noul"
+    },
+    "line_4_unexplained_fee": {
+     "raw": 0.0912,
+     "kind": "noul"
+    },
+    "line_4_rate_differs": {
+     "raw": 0.0011,
+     "kind": "noul"
+    },
+    "prior_0": {
+     "raw": "earlier_period_or_phase",
+     "kind": "choice"
+    },
+    "prior_1": {
+     "raw": "earlier_period_or_phase",
+     "kind": "choice"
+    },
+    "prior_2": {
+     "raw": "earlier_period_or_phase",
+     "kind": "choice"
+    },
+    "approval_0": {
+     "raw": "approves_as_billed",
+     "kind": "choice"
+    },
+    "statement_not_invoice": {
+     "raw": 0.0339,
+     "kind": "noul"
+    },
+    "unusual_urgency": {
+     "raw": 0.0011,
+     "kind": "noul"
+    },
+    "bank_change_claimed_in_comms": {
+     "raw": 0.0328,
+     "kind": "noul"
+    },
+    "different_entity": {
+     "raw": 0.0023,
+     "kind": "noul"
+    },
+    "price_basis": {
+     "raw": "period_fee",
+     "kind": "choice"
+    },
+    "billed_above_basis": {
+     "raw": 0.2194,
+     "kind": "noul"
+    },
+    "too_ambiguous": {
+     "raw": 0.0489,
+     "kind": "noul"
+    },
+    "unexplained_charges": {
+     "raw": 0.0015,
+     "kind": "noul"
+    },
+    "tax_two_rates": {
+     "raw": 0.0004,
+     "kind": "noul"
+    }
+   },
+   "ap_00198": {
+    "line_0_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_0_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_0_completion": {
+     "raw": "confirmed",
+     "kind": "choice"
+    },
+    "line_0_rebilled": {
+     "raw": 0.0086,
+     "kind": "noul"
+    },
+    "line_0_owner_declined": {
+     "raw": 0.0012,
+     "kind": "noul"
+    },
+    "line_0_unexplained_fee": {
+     "raw": 0.003,
+     "kind": "noul"
+    },
+    "line_0_rate_differs": {
+     "raw": 0.0005,
+     "kind": "noul"
+    },
+    "line_1_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_1_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_1_completion": {
+     "raw": "vendor_only",
+     "kind": "choice"
+    },
+    "line_1_rebilled": {
+     "raw": 0.0102,
+     "kind": "noul"
+    },
+    "line_1_owner_declined": {
+     "raw": 0.0004,
+     "kind": "noul"
+    },
+    "line_1_unexplained_fee": {
+     "raw": 0.0071,
+     "kind": "noul"
+    },
+    "line_1_rate_differs": {
+     "raw": 0.0015,
+     "kind": "noul"
+    },
+    "line_2_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_2_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_2_completion": {
+     "raw": "vendor_only",
+     "kind": "choice"
+    },
+    "line_2_rebilled": {
+     "raw": 0.0085,
+     "kind": "noul"
+    },
+    "line_2_owner_declined": {
+     "raw": 0.0007,
+     "kind": "noul"
+    },
+    "line_2_unexplained_fee": {
+     "raw": 0.0033,
+     "kind": "noul"
+    },
+    "line_2_rate_differs": {
+     "raw": 0.0006,
+     "kind": "noul"
+    },
+    "line_3_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_3_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_3_completion": {
+     "raw": "confirmed",
+     "kind": "choice"
+    },
+    "line_3_rebilled": {
+     "raw": 0.0092,
+     "kind": "noul"
+    },
+    "line_3_owner_declined": {
+     "raw": 0.0003,
+     "kind": "noul"
+    },
+    "line_3_unexplained_fee": {
+     "raw": 0.002,
+     "kind": "noul"
+    },
+    "line_3_rate_differs": {
+     "raw": 0.001,
+     "kind": "noul"
+    },
+    "prior_0": {
+     "raw": "earlier_period_or_phase",
+     "kind": "choice"
+    },
+    "prior_1": {
+     "raw": "unrelated",
+     "kind": "choice"
+    },
+    "prior_2": {
+     "raw": "unrelated",
+     "kind": "choice"
+    },
+    "prior_3": {
+     "raw": "earlier_period_or_phase",
+     "kind": "choice"
+    },
+    "approval_0": {
+     "raw": "approves_as_billed",
+     "kind": "choice"
+    },
+    "sender_0": {
+     "raw": "unconfirmable_story",
+     "kind": "choice"
+    },
+    "statement_not_invoice": {
+     "raw": 0.0309,
+     "kind": "noul"
+    },
+    "unusual_urgency": {
+     "raw": 0.0052,
+     "kind": "noul"
+    },
+    "bank_change_claimed_in_comms": {
+     "raw": 0.0121,
+     "kind": "noul"
+    },
+    "different_entity": {
+     "raw": 0.0036,
+     "kind": "noul"
+    },
+    "price_basis": {
+     "raw": "period_fee",
+     "kind": "choice"
+    },
+    "billed_above_basis": {
+     "raw": 0.5831,
+     "kind": "noul"
+    },
+    "too_ambiguous": {
+     "raw": 0.8685,
+     "kind": "noul"
+    },
+    "unexplained_charges": {
+     "raw": 0.0012,
+     "kind": "noul"
+    },
+    "tax_two_rates": {
+     "raw": 0.0002,
+     "kind": "noul"
+    }
+   },
+   "ap_00074": {
+    "line_0_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_0_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_0_completion": {
+     "raw": "vendor_only",
+     "kind": "choice"
+    },
+    "line_0_rebilled": {
+     "raw": 0.0086,
+     "kind": "noul"
+    },
+    "line_0_owner_declined": {
+     "raw": 0.0003,
+     "kind": "noul"
+    },
+    "line_0_unexplained_fee": {
+     "raw": 0.0022,
+     "kind": "noul"
+    },
+    "line_0_rate_differs": {
+     "raw": 0.0042,
+     "kind": "noul"
+    },
+    "line_1_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_1_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_1_completion": {
+     "raw": "vendor_only",
+     "kind": "choice"
+    },
+    "line_1_rebilled": {
+     "raw": 0.007,
+     "kind": "noul"
+    },
+    "line_1_owner_declined": {
+     "raw": 0.0004,
+     "kind": "noul"
+    },
+    "line_1_unexplained_fee": {
+     "raw": 0.0021,
+     "kind": "noul"
+    },
+    "line_1_rate_differs": {
+     "raw": 0.0022,
+     "kind": "noul"
+    },
+    "line_2_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_2_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_2_completion": {
+     "raw": "vendor_only",
+     "kind": "choice"
+    },
+    "line_2_rebilled": {
+     "raw": 0.003,
+     "kind": "noul"
+    },
+    "line_2_owner_declined": {
+     "raw": 0.0006,
+     "kind": "noul"
+    },
+    "line_2_unexplained_fee": {
+     "raw": 0.0034,
+     "kind": "noul"
+    },
+    "line_2_rate_differs": {
+     "raw": 0.0011,
+     "kind": "noul"
+    },
+    "line_3_kind": {
+     "raw": "charge_on_top",
+     "kind": "choice"
+    },
+    "line_3_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_3_completion": {
+     "raw": "vendor_only",
+     "kind": "choice"
+    },
+    "line_3_rebilled": {
+     "raw": 0.0057,
+     "kind": "noul"
+    },
+    "line_3_owner_declined": {
+     "raw": 0.0004,
+     "kind": "noul"
+    },
+    "line_3_unexplained_fee": {
+     "raw": 0.0115,
+     "kind": "noul"
+    },
+    "line_3_rate_differs": {
+     "raw": 0.0027,
+     "kind": "noul"
+    },
+    "prior_0": {
+     "raw": "unrelated",
+     "kind": "choice"
+    },
+    "prior_1": {
+     "raw": "unrelated",
+     "kind": "choice"
+    },
+    "prior_2": {
+     "raw": "unrelated",
+     "kind": "choice"
+    },
+    "approval_0": {
+     "raw": "approves_as_billed",
+     "kind": "choice"
+    },
+    "sender_0": {
+     "raw": "unconfirmable_story",
+     "kind": "choice"
+    },
+    "statement_not_invoice": {
+     "raw": 0.1386,
+     "kind": "noul"
+    },
+    "unusual_urgency": {
+     "raw": 0.009,
+     "kind": "noul"
+    },
+    "bank_change_claimed_in_comms": {
+     "raw": 0.2865,
+     "kind": "noul"
+    },
+    "different_entity": {
+     "raw": 0.0027,
+     "kind": "noul"
+    },
+    "price_basis": {
+     "raw": "unit_rates",
+     "kind": "choice"
+    },
+    "billed_above_basis": {
+     "raw": 0.1818,
+     "kind": "noul"
+    },
+    "too_ambiguous": {
+     "raw": 0.0016,
+     "kind": "noul"
+    },
+    "unexplained_charges": {
+     "raw": 0.1042,
+     "kind": "noul"
+    },
+    "adjustment_duplicates_line": {
+     "raw": 0.5632,
+     "kind": "noul"
+    },
+    "tax_two_rates": {
+     "raw": 0.0013,
+     "kind": "noul"
+    }
+   },
+   "ap_00246": {
+    "line_0_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_0_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_0_completion": {
+     "raw": "not_done",
+     "kind": "choice"
+    },
+    "line_0_rebilled": {
+     "raw": 0.0098,
+     "kind": "noul"
+    },
+    "line_0_owner_declined": {
+     "raw": 0.0002,
+     "kind": "noul"
+    },
+    "line_0_unexplained_fee": {
+     "raw": 0.0017,
+     "kind": "noul"
+    },
+    "line_0_rate_differs": {
+     "raw": 0.0002,
+     "kind": "noul"
+    },
+    "line_1_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_1_scope": {
+     "raw": "priced_unit",
+     "kind": "choice"
+    },
+    "line_1_completion": {
+     "raw": "not_done",
+     "kind": "choice"
+    },
+    "line_1_rebilled": {
+     "raw": 0.0053,
+     "kind": "noul"
+    },
+    "line_1_owner_declined": {
+     "raw": 0.0002,
+     "kind": "noul"
+    },
+    "line_1_unexplained_fee": {
+     "raw": 0.002,
+     "kind": "noul"
+    },
+    "line_1_rate_differs": {
+     "raw": 0.0004,
+     "kind": "noul"
+    },
+    "prior_0": {
+     "raw": "unrelated",
+     "kind": "choice"
+    },
+    "prior_1": {
+     "raw": "unrelated",
+     "kind": "choice"
+    },
+    "approval_0": {
+     "raw": "review_in_progress",
+     "kind": "choice"
+    },
+    "statement_not_invoice": {
+     "raw": 0.0192,
+     "kind": "noul"
+    },
+    "unusual_urgency": {
+     "raw": 0.0001,
+     "kind": "noul"
+    },
+    "bank_change_claimed_in_comms": {
+     "raw": 0.0016,
+     "kind": "noul"
+    },
+    "different_entity": {
+     "raw": 0.0357,
+     "kind": "noul"
+    },
+    "price_basis": {
+     "raw": "unit_rates",
+     "kind": "choice"
+    },
+    "billed_above_basis": {
+     "raw": 0.3093,
+     "kind": "noul"
+    },
+    "too_ambiguous": {
+     "raw": 0.0288,
+     "kind": "noul"
+    },
+    "unexplained_charges": {
+     "raw": 0.0002,
+     "kind": "noul"
+    },
+    "tax_two_rates": {
+     "raw": 0.0003,
+     "kind": "noul"
+    }
+   },
+   "ap_00225": {
+    "line_0_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_0_scope": {
+     "raw": "not_ours",
+     "kind": "choice"
+    },
+    "line_0_completion": {
+     "raw": "vendor_only",
+     "kind": "choice"
+    },
+    "line_0_rebilled": {
+     "raw": 0.0006,
+     "kind": "noul"
+    },
+    "line_0_owner_declined": {
+     "raw": 0.0004,
+     "kind": "noul"
+    },
+    "line_0_unexplained_fee": {
+     "raw": 0.0022,
+     "kind": "noul"
+    },
+    "line_0_rate_differs": {
+     "raw": 0.0015,
+     "kind": "noul"
+    },
+    "line_1_kind": {
+     "raw": "work_or_goods",
+     "kind": "choice"
+    },
+    "line_1_scope": {
+     "raw": "not_ours",
+     "kind": "choice"
+    },
+    "line_1_completion": {
+     "raw": "vendor_only",
+     "kind": "choice"
+    },
+    "line_1_rebilled": {
+     "raw": 0.0007,
+     "kind": "noul"
+    },
+    "line_1_owner_declined": {
+     "raw": 0.0006,
+     "kind": "noul"
+    },
+    "line_1_unexplained_fee": {
+     "raw": 0.0019,
+     "kind": "noul"
+    },
+    "line_1_rate_differs": {
+     "raw": 0.0015,
+     "kind": "noul"
+    },
+    "sender_0": {
+     "raw": "plausible",
+     "kind": "choice"
+    },
+    "statement_not_invoice": {
+     "raw": 0.0617,
+     "kind": "noul"
+    },
+    "unusual_urgency": {
+     "raw": 0.0018,
+     "kind": "noul"
+    },
+    "bank_change_claimed_in_comms": {
+     "raw": 0.017,
+     "kind": "noul"
+    },
+    "different_entity": {
+     "raw": 0.8852,
+     "kind": "noul"
+    },
+    "price_basis": {
+     "raw": "period_fee",
+     "kind": "choice"
+    },
+    "billed_above_basis": {
+     "raw": 0.2565,
+     "kind": "noul"
+    },
+    "too_ambiguous": {
+     "raw": 0.0074,
+     "kind": "noul"
+    },
+    "unexplained_charges": {
+     "raw": 0.0005,
+     "kind": "noul"
+    },
+    "tax_two_rates": {
+     "raw": 0.0001,
+     "kind": "noul"
+    }
+   }
+  }
+ }
+}
