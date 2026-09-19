@@ -1,0 +1,20 @@
+[
+  {"id": "shop-warenkorb", "url": "testseiten/shop.html",
+   "task": "Lege den Wanderschuh in Größe 42 in den Warenkorb.",
+   "expect_text": "Wanderschuh Alpin (Größe 42) wurde in den Warenkorb gelegt"},
+  {"id": "shop-socken", "url": "testseiten/shop.html",
+   "task": "Lege die Merino-Socken in Größe 40 in den Warenkorb.",
+   "expect_text": "Wandersocken Merino (Größe 40) wurde in den Warenkorb gelegt"},
+  {"id": "shop-versand", "url": "testseiten/shop.html",
+   "task": "Finde heraus, wie lange der Versand dauert.",
+   "expect_text": "Versand innerhalb von 2 Tagen"},
+  {"id": "wiki-zugspitze", "url": "https://de.wikipedia.org",
+   "task": "Öffne den Wikipedia-Artikel über die Zugspitze, damit ihre Höhe auf der Seite steht.",
+   "expect_url": "/wiki/Zugspitze"},
+  {"id": "wiki-elbphilharmonie", "url": "https://de.wikipedia.org",
+   "task": "Öffne den Wikipedia-Artikel über die Elbphilharmonie.",
+   "expect_url": "/wiki/Elbphilharmonie"},
+  {"id": "wiki-en-kahneman", "url": "https://en.wikipedia.org",
+   "task": "Open the Wikipedia article about the book Thinking, Fast and Slow.",
+   "expect_url": "/wiki/Thinking,_Fast_and_Slow"}
+]

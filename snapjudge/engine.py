@@ -36,6 +36,7 @@ from .prompts import SYSTEM_PROMPT, question_block, render_value, state_block
 _SPLIT = "⁣<<SO-SPLIT>>⁣"
 _SUPPORTED = {"qwen3_5", "qwen3_5_moe"}
 LONG_STATE_CHARS = 2000  # above this, with several questions, prefill the state only once
+SHARED_SUFFIX_TOKENS = 256  # question part this long, with 2+ branches: prefill it once
 
 
 @dataclass
@@ -66,14 +67,18 @@ class Engine:
         max_rows: int = 48,
         prefill_chunk: int = 2048,
         cache_limit_gb: float | None = None,
+        adapter_path: str | None = None,
+        fuse_adapter: bool = True,
     ):
         self.model_path = model_path
-        self.name = name or Path(model_path).name
+        self.name = name or Path(model_path).name + (f"+{Path(adapter_path).name}" if adapter_path else "")
         # MLX keeps freed buffers in its own cache. After large batches that can pin many GB,
         # which matters when other model servers share the machine. Cap it (SO_CACHE_LIMIT_GB).
         limit = cache_limit_gb if cache_limit_gb is not None else float(os.environ.get("SO_CACHE_LIMIT_GB", 4))
         mx.set_cache_limit(int(limit * 1024**3))
-        self.model, self.processor = load(model_path)
+        self.model, self.processor = load(model_path, adapter_path=adapter_path)
+        if adapter_path and fuse_adapter:
+            self._fuse_lora()
         self.lm = self.model.language_model
         mt = getattr(self.model.config, "model_type", "?")
         if mt not in _SUPPORTED:
@@ -89,6 +94,19 @@ class Engine:
         self._base_ids = self._encode(self._template(_SPLIT)[0])  # chat template up to the user content
         self._base_snap = None
         self.lock = threading.Lock()
+
+    def _fuse_lora(self):
+        """Fold LoRA deltas into the base weights. The fused layers stay in bf16: re-quantizing them
+        to 4 bit erased most of the fine-tuning (typed-decisions accuracy 0.775 -> 0.606)."""
+        from mlx.utils import tree_unflatten
+
+        fused = [(n, m.fuse(dequantize=True)) for n, m in self.model.named_modules() if hasattr(m, "fuse") and hasattr(m, "lora_a")]
+        if fused:
+            self.model.update_modules(tree_unflatten(fused))
+        # Materialize the fused weights here: left lazy, they are computed on first use, and a
+        # server answers from a worker thread, where MLX has no stream for this thread's graph.
+        mx.eval(self.model.parameters())
+        self.model.eval()
 
     # ------------------------------------------------------------------ calibration
     def _load_temps(self, path: str | None) -> dict:
@@ -330,8 +348,27 @@ class Engine:
             hits.append(hit)
             rows, owners = [], []
             for qi in members:
-                for node, path in parsed[qi].branches:
-                    rows.append(parsed[qi].suffix + path)
+                pq = parsed[qi]
+                if len(pq.branches) >= 2 and len(pq.suffix) >= SHARED_SUFFIX_TOKENS:
+                    # Many branches under a long question (e.g. dozens of element labels): prefill
+                    # the question once and run only the label paths, instead of the whole question
+                    # once per branch.
+                    ta = time.perf_counter()
+                    cache = self._restore(snap, 1)
+                    self._prefill(list(head_ids) + pq.suffix[:-1], cache, start=len(head_ids))
+                    q_snap = self._snapshot(cache)
+                    prefill_s += time.perf_counter() - ta
+                    q_rows = [[pq.suffix[-1]] + path for _, path in pq.branches]
+                    n_rows += len(q_rows)
+                    offset = len(head_ids) + len(pq.suffix) - 1
+                    for (node, path), lg in zip(pq.branches, self._run_rows(q_snap, offset, q_rows)):
+                        logits_by_q[qi][id(node)] = lg
+                        if not path:
+                            root_logits[qi] = lg
+                    del cache, q_snap
+                    continue
+                for node, path in pq.branches:
+                    rows.append(pq.suffix + path)
                     owners.append((qi, node, not path))
             n_rows += len(rows)
             for (qi, node, is_root), lg in zip(owners, self._run_rows(snap, len(head_ids), rows) if rows else []):

@@ -1,7 +1,7 @@
 """SemIf authored144 (github.com/TheoLeeCJ/SemIf, MIT) against this engine: mean per-family balanced accuracy, as SemIf reports it.
 
     python eval/extern/semif_eval.py http [url]      # against a running server (default :8724)
-    python eval/extern/semif_eval.py local <model>   # in-process
+    python eval/extern/semif_eval.py local <model> [adapter]   # in-process
 """
 import json, sys, time, statistics
 from pathlib import Path
@@ -39,6 +39,6 @@ if mode == "http":
     run(lambda s, q: c.post("/v1/systemone", json={"state": s, "questions": q}).json(), name)
 else:
     from snapjudge.engine import Engine
-    e = Engine(sys.argv[2])
+    e = Engine(sys.argv[2], adapter_path=sys.argv[3] if len(sys.argv) > 3 else None)
     e.system_one("warm", {"q": to_q(rows[0])})
     run(lambda s, q: e.system_one(s, q), e.name)

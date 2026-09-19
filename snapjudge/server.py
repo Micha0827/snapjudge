@@ -4,7 +4,7 @@ Start with `snapjudge-serve --model <path or Hugging Face id>` (see cli.py), or 
     SO_MODEL=<model> uvicorn snapjudge.server:app --port 8724
 Optional: SO_NAME (model name in responses), SO_API_KEY (require a bearer token),
           SO_CALIBRATION (per-type temperatures, JSON {model_name: {type: T}}),
-          SO_CACHE_LIMIT_GB (cap on MLX buffer cache, default 4).
+          SO_CACHE_LIMIT_GB (cap on MLX buffer cache, default 4), SO_ADAPTER (LoRA adapter directory).
 """
 
 from __future__ import annotations
@@ -59,7 +59,7 @@ async def lifespan(app: FastAPI):
     global ENGINE
     path = os.environ["SO_MODEL"]
     t = time.perf_counter()
-    ENGINE = Engine(path, name=os.environ.get("SO_NAME"))
+    ENGINE = Engine(path, name=os.environ.get("SO_NAME"), adapter_path=os.environ.get("SO_ADAPTER"))
     log.warning("Loaded %s in %.1f s", ENGINE.name, time.perf_counter() - t)
     yield
 

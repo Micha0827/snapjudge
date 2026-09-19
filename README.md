@@ -243,6 +243,81 @@ The output has the same shape as jev-on-a-laptop's `results/full-*.json`
 unchanged. Score questions report the most likely level, because the reference is an argmax over
 levels too. `--workflows` restricts the run to some of the four workflows.
 
+## Fine-tuning a small model
+
+`training/train_lora.py` trains a LoRA adapter on MLX with the engine's own prompt, using a soft
+cross-entropy against the full gold distribution at the answer position (a proper scoring rule).
+Data: [LocalLLaMA/typed-decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions)
+(Apache-2.0; four workflows, 1,200 train / 400 test cases, 5 typed questions each).
+
+```bash
+pip install -e ".[train]"
+python training/train_lora.py --model mlx-community/Qwen3.5-2B-MLX-4bit --train train.parquet \
+    --out adapters/qwen3.5-2b-td-v1 --grad-checkpoint
+python training/fit_temperature.py --model mlx-community/Qwen3.5-2B-MLX-4bit \
+    --adapter adapters/qwen3.5-2b-td-v1 --train train.parquet --out adapters/calibration.json
+python eval/extern/typed_decisions.py test.parquet --local mlx-community/Qwen3.5-2B-MLX-4bit \
+    --adapter adapters/qwen3.5-2b-td-v1
+snapjudge-serve --model mlx-community/Qwen3.5-2B-MLX-4bit --adapter adapters/qwen3.5-2b-td-v1
+```
+
+Test split, 2,000 decisions (M2 Max, one epoch ≈ 2¾ h for 2B, 3½ h for 4B):
+
+| Model | Accuracy | KL | Brier | ECE | ms per case |
+|---|---:|---:|---:|---:|---:|
+| Qwen3.5-2B, no training | 0.412 | 0.803 | 0.355 | 0.234 | 824 |
+| Qwen3.5-4B, no training | 0.618 | 0.452 | 0.188 | 0.076 | – |
+| Jev 1.13.0 (dataset card) | 0.727 | 1.442 | 0.148 | 0.144 | 710 |
+| **Qwen3.5-2B + LoRA** | **0.777** | 0.100 | 0.055 | 0.158 | **739** |
+| Qwen3.5-4B + LoRA | 0.775 | 0.094 | 0.050 | 0.156 | 1,770 |
+
+What we learned:
+
+- **The adapter is a specialist.** Off its four workflows it hurts the 4B: German test set
+  93.9 % untrained vs. 86.8 % trained; game sentences (German) 37/38 vs. 31/38. Only the weak 2B
+  gains everywhere (German set 50.9 % → 80.7 %). Train on data from your own use case, not on a
+  foreign benchmark, and compare against the untrained model first.
+- **Fuse in bf16, never re-quantize.** Folding the adapter back into 4-bit weights erased most of
+  the effect (0.775 → 0.606). The engine fuses into bf16, which is lossless and also faster.
+- **The trained models are underconfident** (no answer with p ≥ 0.9 on the German set). A
+  temperature per question type, fitted on the held-out 10 % (`--calibration`), fixes that: ECE
+  0.158 → 0.032 on the test split. Both models score above the teacher ceiling of 0.735, so part of
+  what they learned is the labelers' style; the dataset card says as much.
+
+## Browser agent (experimental)
+
+`agent/browser_agent.py` rebuilds the idea behind Jev Browser with Playwright: the page's
+interactive elements are numbered, and one request asks two typed questions about the page:
+"is the task done?" (yes/no) and "which action next?" (a choice where every option is a concrete
+action such as `e3: type into the field "Search" and press Enter`). Picking operation and target
+separately confused small models. Text to type comes from the same model. Consent banners are
+rejected automatically and "accept all" is never offered as an action.
+
+```bash
+pip install -e ".[agent]"
+python agent/browser_agent.py --model mlx-community/Qwen3.5-4B-MLX-4bit \
+    --url https://en.wikipedia.org --task "Open the article about Thinking, Fast and Slow."
+python agent/run_suite.py --model mlx-community/Qwen3.5-4B-MLX-4bit           # 6 tasks
+python agent/run_suite.py --model mlx-community/Qwen3.5-4B-MLX-4bit --mode generate
+```
+
+`--mode generate` is the baseline: the same model writes evaluation, memory, goal and action as
+JSON, like most LLM browser agents, with the same page state and options. `--show MS --video`
+records a run with the decisions drawn onto the page.
+
+| 6 tasks (local shop page, Wikipedia) | Solved | Mean per decision | Total |
+|---|---:|---:|---:|
+| Qwen3.5-4B, typed decisions | **6/6** | 1.8 s | 47.9 s |
+| Qwen3.5-4B, JSON baseline | 5/6 | 2.3 s | 38.5 s |
+| Qwen3.6-35B-A3B, typed decisions | **6/6** | 1.9 s | 45.5 s |
+| Qwen3.6-35B-A3B, JSON baseline | 5/6 | 2.6 s | 53.7 s |
+
+On a Mac the gain per decision is modest (1.3–1.5×): reading the page dominates, not writing
+~120 tokens. What typed decisions add is a probability for every step and no unparseable
+answers. The typed-decisions adapters made the agent worse. Google Flights (one-way Zürich →
+London on a given date) is not solved yet: the 35B fills origin, destination and trip type and
+reaches the results, but picks the wrong date in the calendar.
+
 ## Related
 
 - [TypeSafe docs](https://docs.typesafe.ai) – the System One API this server mirrors

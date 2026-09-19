@@ -17,10 +17,11 @@ def main():
     ap.add_argument("--name", help="model name reported in responses (default: last path component)")
     ap.add_argument("--api-key", help="require this bearer token")
     ap.add_argument("--calibration", help="JSON file with per-type temperatures")
+    ap.add_argument("--adapter", help="LoRA adapter directory (adapters.safetensors + adapter_config.json)")
     args = ap.parse_args()
 
     os.environ["SO_MODEL"] = args.model
-    for var, value in (("SO_NAME", args.name), ("SO_API_KEY", args.api_key), ("SO_CALIBRATION", args.calibration)):
+    for var, value in (("SO_NAME", args.name), ("SO_API_KEY", args.api_key), ("SO_CALIBRATION", args.calibration), ("SO_ADAPTER", args.adapter)):
         if value:
             os.environ[var] = value
     print(f"Game: http://{args.host}:{args.port}/game/  ·  API: POST http://{args.host}:{args.port}/v1/systemone")

@@ -30,7 +30,7 @@ def make_caller(args):
     if args.local:
         from snapjudge.engine import Engine
 
-        engine = Engine(os.path.expanduser(args.local), calibration_path=args.calibration)
+        engine = Engine(os.path.expanduser(args.local), calibration_path=args.calibration, adapter_path=args.adapter)
         return engine.name, lambda state, qs: engine.system_one(state, qs, layout=args.layout)
 
     import httpx
@@ -63,6 +63,7 @@ def main():
     ap.add_argument("--model", default="local")
     ap.add_argument("--key-env", help="environment variable that holds the API key")
     ap.add_argument("--calibration", help="temperature file for the local engine")
+    ap.add_argument("--adapter", help="LoRA adapter directory for the local engine")
     ap.add_argument("--testset", default=str(ROOT / "eval" / "testset_de.json"))
     ap.add_argument("--tag")
     ap.add_argument("--layout", default="auto", choices=["auto", "state_first", "question_first"])

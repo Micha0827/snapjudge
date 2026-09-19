@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Bergladen – Testshop</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 760px; margin: 24px auto; padding: 0 16px; }
+  nav a { margin-right: 12px; }
+  .produkt { border: 1px solid #ccc; border-radius: 8px; padding: 12px; margin: 10px 0; }
+  .hinweis { background: #eef7ee; padding: 10px; border-radius: 6px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<!-- Local test page for agent/browser_agent.py: search, product page with a size dropdown, cart. -->
+<nav>
+  <a href="#" data-view="start">Start</a>
+  <a href="#" data-view="hilfe">Hilfe</a>
+  <a href="#" data-view="warenkorb">Warenkorb (<span id="anzahl">0</span>)</a>
+</nav>
+
+<section id="start">
+  <h1>Bergladen</h1>
+  <p>Ausrüstung für Wandern und Klettern.</p>
+  <form id="suche">
+    <label for="q">Produktsuche</label>
+    <input id="q" name="q" placeholder="Was suchst du?">
+    <button type="submit">Suchen</button>
+  </form>
+  <label><input type="checkbox" id="newsletter"> Newsletter abonnieren</label>
+  <div id="treffer"></div>
+</section>
+
+<section id="produkt" hidden>
+  <h1 id="p-name"></h1>
+  <p id="p-text"></p>
+  <label for="groesse">Größe</label>
+  <select id="groesse">
+    <option value="">Bitte wählen</option>
+    <option>40</option><option>41</option><option>42</option><option>43</option><option>44</option>
+  </select>
+  <button id="in-warenkorb">In den Warenkorb</button>
+  <p id="fehler" style="color:#b00"></p>
+</section>
+
+<section id="warenkorb" hidden>
+  <h1>Warenkorb</h1>
+  <ul id="positionen"></ul>
+  <p id="leer">Dein Warenkorb ist leer.</p>
+</section>
+
+<section id="hilfe" hidden>
+  <h1>Hilfe</h1>
+  <p>Versand innerhalb von 2 Tagen. Rückgabe 30 Tage.</p>
+</section>
+
+<script>
+const produkte = [
+  {name: "Wanderschuh Alpin", text: "Wasserdichter Wanderschuh für lange Touren.", preis: "129 €"},
+  {name: "Wandersocken Merino", text: "Warme Socken aus Merinowolle, 2er-Pack.", preis: "19 €"},
+  {name: "Kletterschuh Grip", text: "Enger Kletterschuh für die Halle.", preis: "89 €"},
+  {name: "Regenjacke Sturm", text: "Leichte Regenjacke, packbar.", preis: "149 €"},
+];
+const korb = [];
+let aktuell = null;
+
+function zeige(view) {
+  for (const s of document.querySelectorAll("section")) s.hidden = s.id !== view;
+  if (view === "warenkorb") {
+    const ul = document.getElementById("positionen");
+    ul.innerHTML = korb.map(k => `<li>${k.name}, Größe ${k.groesse}, ${k.preis}</li>`).join("");
+    document.getElementById("leer").hidden = korb.length > 0;
+  }
+}
+document.querySelectorAll("nav a").forEach(a => a.addEventListener("click", e => {
+  e.preventDefault(); zeige(a.dataset.view);
+}));
+document.getElementById("suche").addEventListener("submit", e => {
+  e.preventDefault();
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  // like a real shop search: any word of 4+ letters that appears in the product name
+  const words = q.split(/[\s-]+/).filter(w => w.length >= 4);
+  const hits = produkte.filter(p => words.some(w => p.name.toLowerCase().includes(w)));
+  document.getElementById("treffer").innerHTML = hits.length
+    ? `<p>${hits.length} Treffer für „${q}“:</p>` + hits.map((p, i) =>
+        `<div class="produkt"><a href="#" data-i="${produkte.indexOf(p)}">${p.name}</a> – ${p.preis}</div>`).join("")
+    : `<p>Keine Treffer für „${q}“.</p>`;
+  document.querySelectorAll("#treffer a").forEach(a => a.addEventListener("click", e => {
+    e.preventDefault();
+    aktuell = produkte[+a.dataset.i];
+    document.getElementById("p-name").textContent = aktuell.name;
+    document.getElementById("p-text").textContent = `${aktuell.text} Preis: ${aktuell.preis}`;
+    document.getElementById("groesse").value = "";
+    document.getElementById("fehler").textContent = "";
+    zeige("produkt");
+  }));
+});
+document.getElementById("in-warenkorb").addEventListener("click", () => {
+  const g = document.getElementById("groesse").value;
+  if (!g) { document.getElementById("fehler").textContent = "Bitte zuerst eine Größe wählen."; return; }
+  korb.push({...aktuell, groesse: g});
+  document.getElementById("anzahl").textContent = korb.length;
+  zeige("warenkorb");
+  document.getElementById("warenkorb").insertAdjacentHTML("afterbegin",
+    `<p class="hinweis">${aktuell.name} (Größe ${g}) wurde in den Warenkorb gelegt.</p>`);
+});
+</script>
+</body>
+</html>

@@ -22,6 +22,8 @@ Homepage = "https://github.com/Micha0827/snapjudge"
 [project.optional-dependencies]
 eval = ["httpx"]
 test = ["pytest", "httpx"]
+train = ["pandas", "pyarrow"]
+agent = ["playwright"]
 
 [project.scripts]
 snapjudge-serve = "snapjudge.cli:main"

@@ -1,0 +1,541 @@
+{
+  "model": "Qwen3.5-2B-MLX-4bit",
+  "latency_ms": {
+    "median": 285.9,
+    "p95": 722.9
+  },
+  "overall": {
+    "n": 114,
+    "acc": 0.5087719298245614,
+    "mean_conf": 0.6817228070175438,
+    "ece": 0.20220877192982453,
+    "brier": 0.6391174615789473,
+    "nll": 1.563711735954689,
+    "auto_share": 0.15789473684210525,
+    "auto_acc": 0.7222222222222222,
+    "score_mae": 0.4196533333333333
+  },
+  "per_question": {
+    "konto.kategorie": {
+      "n": 20,
+      "acc": 0.4,
+      "mean_conf": 0.6496500000000001,
+      "ece": 0.35856,
+      "brier": 0.7423107274999999,
+      "nll": 2.6126261400003012,
+      "auto_share": 0.05,
+      "auto_acc": 1.0
+    },
+    "mail.dringend": {
+      "n": 15,
+      "acc": 0.3333333333333333,
+      "mean_conf": 0.6959933333333334,
+      "ece": 0.41115333333333326,
+      "brier": 0.6099949613333334,
+      "nll": 0.7970672457057988,
+      "auto_share": 0.06666666666666667,
+      "auto_acc": 1.0
+    },
+    "mail.kategorie": {
+      "n": 17,
+      "acc": 0.4117647058823529,
+      "mean_conf": 0.8214058823529412,
+      "ece": 0.44719411764705885,
+      "brier": 1.0273306982352943,
+      "nll": 3.800128394211703,
+      "auto_share": 0.5294117647058824,
+      "auto_acc": 0.4444444444444444
+    },
+    "mail.phishing": {
+      "n": 17,
+      "acc": 0.5294117647058824,
+      "mean_conf": 0.679464705882353,
+      "ece": 0.4238294117647059,
+      "brier": 0.6526839023529412,
+      "nll": 0.8566889943694994,
+      "auto_share": 0.11764705882352941,
+      "auto_acc": 1.0
+    },
+    "mail.ton": {
+      "n": 15,
+      "acc": 0.8,
+      "mean_conf": 0.6314533333333333,
+      "ece": 0.34974666666666665,
+      "brier": 0.27181408199999996,
+      "nll": 0.5159655796706774,
+      "auto_share": 0.06666666666666667,
+      "auto_acc": 1.0,
+      "score_mae": 0.4196533333333333
+    },
+    "mieter.anliegen": {
+      "n": 15,
+      "acc": 0.6,
+      "mean_conf": 0.65392,
+      "ece": 0.2901066666666666,
+      "brier": 0.5613852579999999,
+      "nll": 1.1039021503515576,
+      "auto_share": 0.2,
+      "auto_acc": 1.0
+    },
+    "mieter.notfall": {
+      "n": 15,
+      "acc": 0.5333333333333333,
+      "mean_conf": 0.63254,
+      "ece": 0.13933999999999996,
+      "brier": 0.5203342226666666,
+      "nll": 0.7060463238018373,
+      "auto_share": 0.06666666666666667,
+      "auto_acc": 1.0
+    }
+  },
+  "errors": [
+    {
+      "item": "mail-01",
+      "qid": "mail.dringend",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.621,
+      "p_gold": 0.379
+    },
+    {
+      "item": "mail-02",
+      "qid": "mail.kategorie",
+      "gold": "support",
+      "got": "anfrage",
+      "p_got": 0.62,
+      "p_gold": 0.0
+    },
+    {
+      "item": "mail-02",
+      "qid": "mail.phishing",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.755,
+      "p_gold": 0.245
+    },
+    {
+      "item": "mail-03",
+      "qid": "mail.dringend",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.757,
+      "p_gold": 0.243
+    },
+    {
+      "item": "mail-03",
+      "qid": "mail.ton",
+      "gold": "0",
+      "got": "1",
+      "p_got": 0.459,
+      "p_gold": 0.361
+    },
+    {
+      "item": "mail-04",
+      "qid": "mail.kategorie",
+      "gold": "support",
+      "got": "anfrage",
+      "p_got": 0.852,
+      "p_gold": 0.121
+    },
+    {
+      "item": "mail-04",
+      "qid": "mail.ton",
+      "gold": "2",
+      "got": "1",
+      "p_got": 0.478,
+      "p_gold": 0.439
+    },
+    {
+      "item": "mail-05",
+      "qid": "mail.kategorie",
+      "gold": "termin",
+      "got": "support",
+      "p_got": 0.592,
+      "p_gold": 0.119
+    },
+    {
+      "item": "mail-05",
+      "qid": "mail.dringend",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.706,
+      "p_gold": 0.294
+    },
+    {
+      "item": "mail-06",
+      "qid": "mail.kategorie",
+      "gold": "werbung_spam",
+      "got": "anfrage",
+      "p_got": 0.985,
+      "p_gold": 0.014
+    },
+    {
+      "item": "mail-06",
+      "qid": "mail.dringend",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.681,
+      "p_gold": 0.319
+    },
+    {
+      "item": "mail-06",
+      "qid": "mail.phishing",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.75,
+      "p_gold": 0.25
+    },
+    {
+      "item": "mail-07",
+      "qid": "mail.kategorie",
+      "gold": "werbung_spam",
+      "got": "anfrage",
+      "p_got": 0.65,
+      "p_gold": 0.001
+    },
+    {
+      "item": "mail-08",
+      "qid": "mail.kategorie",
+      "gold": "werbung_spam",
+      "got": "anfrage",
+      "p_got": 0.952,
+      "p_gold": 0.0
+    },
+    {
+      "item": "mail-09",
+      "qid": "mail.dringend",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.728,
+      "p_gold": 0.272
+    },
+    {
+      "item": "mail-09",
+      "qid": "mail.phishing",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.724,
+      "p_gold": 0.276
+    },
+    {
+      "item": "mail-10",
+      "qid": "mail.kategorie",
+      "gold": "werbung_spam",
+      "got": "anfrage",
+      "p_got": 1.0,
+      "p_gold": 0.0
+    },
+    {
+      "item": "mail-10",
+      "qid": "mail.dringend",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.533,
+      "p_gold": 0.467
+    },
+    {
+      "item": "mail-10",
+      "qid": "mail.phishing",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.736,
+      "p_gold": 0.264
+    },
+    {
+      "item": "mail-11",
+      "qid": "mail.dringend",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.52,
+      "p_gold": 0.48
+    },
+    {
+      "item": "mail-12",
+      "qid": "mail.dringend",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.659,
+      "p_gold": 0.341
+    },
+    {
+      "item": "mail-12",
+      "qid": "mail.ton",
+      "gold": "1",
+      "got": "0",
+      "p_got": 0.422,
+      "p_gold": 0.361
+    },
+    {
+      "item": "mail-12",
+      "qid": "mail.phishing",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.627,
+      "p_gold": 0.373
+    },
+    {
+      "item": "mail-14",
+      "qid": "mail.kategorie",
+      "gold": "support",
+      "got": "anfrage",
+      "p_got": 0.664,
+      "p_gold": 0.329
+    },
+    {
+      "item": "mail-14",
+      "qid": "mail.phishing",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.556,
+      "p_gold": 0.444
+    },
+    {
+      "item": "mail-15",
+      "qid": "mail.kategorie",
+      "gold": "sonstiges",
+      "got": "anfrage",
+      "p_got": 0.95,
+      "p_gold": 0.002
+    },
+    {
+      "item": "mail-15",
+      "qid": "mail.dringend",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.649,
+      "p_gold": 0.351
+    },
+    {
+      "item": "mail-16",
+      "qid": "mail.dringend",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.643,
+      "p_gold": 0.357
+    },
+    {
+      "item": "mail-16",
+      "qid": "mail.phishing",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.8,
+      "p_gold": 0.2
+    },
+    {
+      "item": "mail-17",
+      "qid": "mail.kategorie",
+      "gold": "sonstiges",
+      "got": "anfrage",
+      "p_got": 1.0,
+      "p_gold": 0.0
+    },
+    {
+      "item": "mail-17",
+      "qid": "mail.phishing",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.784,
+      "p_gold": 0.216
+    },
+    {
+      "item": "mieter-01",
+      "qid": "mieter.notfall",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.658,
+      "p_gold": 0.342
+    },
+    {
+      "item": "mieter-03",
+      "qid": "mieter.notfall",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.535,
+      "p_gold": 0.465
+    },
+    {
+      "item": "mieter-05",
+      "qid": "mieter.notfall",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.712,
+      "p_gold": 0.288
+    },
+    {
+      "item": "mieter-06",
+      "qid": "mieter.anliegen",
+      "gold": "reparatur",
+      "got": "nachbarschaft",
+      "p_got": 0.315,
+      "p_gold": 0.272
+    },
+    {
+      "item": "mieter-07",
+      "qid": "mieter.notfall",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.729,
+      "p_gold": 0.271
+    },
+    {
+      "item": "mieter-09",
+      "qid": "mieter.anliegen",
+      "gold": "reparatur",
+      "got": "kuendigung",
+      "p_got": 0.564,
+      "p_gold": 0.058
+    },
+    {
+      "item": "mieter-10",
+      "qid": "mieter.anliegen",
+      "gold": "sonstiges",
+      "got": "kuendigung",
+      "p_got": 0.555,
+      "p_gold": 0.047
+    },
+    {
+      "item": "mieter-10",
+      "qid": "mieter.notfall",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.583,
+      "p_gold": 0.417
+    },
+    {
+      "item": "mieter-11",
+      "qid": "mieter.anliegen",
+      "gold": "reparatur",
+      "got": "kuendigung",
+      "p_got": 0.728,
+      "p_gold": 0.056
+    },
+    {
+      "item": "mieter-12",
+      "qid": "mieter.anliegen",
+      "gold": "reparatur",
+      "got": "kuendigung",
+      "p_got": 0.431,
+      "p_gold": 0.262
+    },
+    {
+      "item": "mieter-12",
+      "qid": "mieter.notfall",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.522,
+      "p_gold": 0.478
+    },
+    {
+      "item": "mieter-13",
+      "qid": "mieter.notfall",
+      "gold": "no",
+      "got": "yes",
+      "p_got": 0.588,
+      "p_gold": 0.412
+    },
+    {
+      "item": "mieter-14",
+      "qid": "mieter.anliegen",
+      "gold": "kuendigung",
+      "got": "zahlung",
+      "p_got": 0.75,
+      "p_gold": 0.237
+    },
+    {
+      "item": "konto-02",
+      "qid": "konto.kategorie",
+      "gold": "telefon_internet",
+      "got": "software_abo",
+      "p_got": 0.673,
+      "p_gold": 0.267
+    },
+    {
+      "item": "konto-03",
+      "qid": "konto.kategorie",
+      "gold": "kundenzahlung",
+      "got": "software_abo",
+      "p_got": 0.511,
+      "p_gold": 0.001
+    },
+    {
+      "item": "konto-07",
+      "qid": "konto.kategorie",
+      "gold": "reise",
+      "got": "software_abo",
+      "p_got": 0.52,
+      "p_gold": 0.001
+    },
+    {
+      "item": "konto-09",
+      "qid": "konto.kategorie",
+      "gold": "versicherung",
+      "got": "software_abo",
+      "p_got": 0.47,
+      "p_gold": 0.334
+    },
+    {
+      "item": "konto-11",
+      "qid": "konto.kategorie",
+      "gold": "reise",
+      "got": "hardware",
+      "p_got": 0.505,
+      "p_gold": 0.002
+    },
+    {
+      "item": "konto-12",
+      "qid": "konto.kategorie",
+      "gold": "telefon_internet",
+      "got": "software_abo",
+      "p_got": 0.599,
+      "p_gold": 0.037
+    },
+    {
+      "item": "konto-13",
+      "qid": "konto.kategorie",
+      "gold": "kundenzahlung",
+      "got": "software_abo",
+      "p_got": 0.374,
+      "p_gold": 0.0
+    },
+    {
+      "item": "konto-15",
+      "qid": "konto.kategorie",
+      "gold": "hardware",
+      "got": "software_abo",
+      "p_got": 0.585,
+      "p_gold": 0.399
+    },
+    {
+      "item": "konto-16",
+      "qid": "konto.kategorie",
+      "gold": "sonstiges",
+      "got": "software_abo",
+      "p_got": 0.545,
+      "p_gold": 0.029
+    },
+    {
+      "item": "konto-17",
+      "qid": "konto.kategorie",
+      "gold": "bewirtung",
+      "got": "software_abo",
+      "p_got": 0.451,
+      "p_gold": 0.211
+    },
+    {
+      "item": "konto-19",
+      "qid": "konto.kategorie",
+      "gold": "versicherung",
+      "got": "hardware",
+      "p_got": 0.569,
+      "p_gold": 0.023
+    },
+    {
+      "item": "konto-20",
+      "qid": "konto.kategorie",
+      "gold": "reise",
+      "got": "software_abo",
+      "p_got": 0.657,
+      "p_gold": 0.001
+    }
+  ]
+}

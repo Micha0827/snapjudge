@@ -9,3 +9,5 @@ build/
 _privat/
 results/*.log
 calibration.json
+adapters/
+results/browser/
