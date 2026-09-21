@@ -66,7 +66,7 @@ def main():
     ap.add_argument("--adapter", help="LoRA adapter directory for the local engine")
     ap.add_argument("--testset", default=str(ROOT / "eval" / "testset_de.json"))
     ap.add_argument("--tag")
-    ap.add_argument("--layout", default="auto", choices=["auto", "state_first", "question_first"])
+    ap.add_argument("--layout", default="auto", choices=["auto", "state_first", "question_first", "header"])
     ap.add_argument("--direction", action="store_true",
                     help="add 'richtung' (incoming/outgoing) to bank transactions, computed from the sign in code")
     args = ap.parse_args()

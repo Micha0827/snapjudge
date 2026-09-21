@@ -50,8 +50,8 @@ class SystemOneRequest(BaseModel):
     model: str = "local"
     questions: dict[str, Question]
     debug: bool = False
-    # Extension over the TypeSafe API: prompt order (auto | state_first | question_first)
-    layout: Literal["auto", "state_first", "question_first"] = "auto"
+    # Extension over the TypeSafe API: prompt order (auto | state_first | question_first | header)
+    layout: Literal["auto", "state_first", "question_first", "header"] = "auto"
 
 
 @asynccontextmanager

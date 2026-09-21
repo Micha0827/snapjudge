@@ -31,7 +31,7 @@ import numpy as np
 from mlx_vlm import load
 from mlx_vlm.models.cache import ArraysCache, KVCache, make_prompt_cache
 
-from .prompts import SYSTEM_PROMPT, question_block, render_value, state_block
+from .prompts import SYSTEM_PROMPT, question_block, question_header, render_value, state_block
 
 _SPLIT = "⁣<<SO-SPLIT>>⁣"
 _SUPPORTED = {"qwen3_5", "qwen3_5_moe"}
@@ -120,12 +120,15 @@ class Engine:
     def _encode(self, text: str) -> list[int]:
         return self.tok.encode(text, add_special_tokens=False)
 
-    def _render(self, state, question_text: str, layout: str = "state_first") -> tuple[str, str]:
+    def _render(self, state, question_text: str, layout: str = "state_first", header: str = "") -> tuple[str, str]:
         """Split the prompt into head (cached) and rest. state_first puts the state in the head
         (many questions about one state); question_first puts the question in the head (the same
-        question about many states)."""
+        question about many states); header puts a list of all questions plus the state in the
+        head, so the state is read with the questions in view and still prefilled only once."""
         if layout == "state_first":
             return self._template(state_block(state) + _SPLIT + question_text)
+        if layout == "header":
+            return self._template(header + state_block(state) + _SPLIT + question_text)
         return self._template(f"{question_text}\n\n<state>\n{_SPLIT}{render_value(state)}\n</state>")
 
     def _template(self, content: str) -> tuple[str, str]:
@@ -308,20 +311,24 @@ class Engine:
 
     # ------------------------------------------------------------------ public API
     def system_one(self, state, questions: dict, debug: bool = False, layout: str = "auto") -> dict:
-        """Answer typed questions about a state. layout: auto | state_first | question_first.
+        """Answer typed questions about a state. layout: auto | state_first | question_first | header.
 
         question_first caches the question (it repeats across requests) and computes only the
         state per request; measured faster and no less accurate. state_first pays off when a long
-        state is evaluated against several questions, because the state is prefilled only once."""
+        state is evaluated against several questions, because the state is prefilled only once.
+        header lists all questions before the state and then asks each one: the state is still
+        prefilled once, but read with the questions in view (on long invoices it recovered about
+        half of question_first's accuracy gain at state_first's cost)."""
         t0 = time.perf_counter()
         if layout == "auto":
             long_state = len(render_value(state)) > LONG_STATE_CHARS
             layout = "state_first" if long_state and len(questions) > 1 else "question_first"
+        header = question_header(questions) if layout == "header" else ""
         heads: dict[tuple, list[int]] = {}  # head tokens -> indices of questions
         parsed: list[_Question] = []
         for qid, q in questions.items():
             text, options, surfaces = question_block(q)
-            head, tail = self._render(state, text, layout)
+            head, tail = self._render(state, text, layout, header)
             head_ids = self._encode(head)
             full = self._encode(head + tail)
             if full[: len(head_ids)] != head_ids:

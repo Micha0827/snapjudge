@@ -22,7 +22,7 @@ def main():
     ap.add_argument("--url", default="http://127.0.0.1:8724")
     ap.add_argument("--lang", default="en", choices=["en", "de"])
     ap.add_argument("--german-labels", action="store_true")
-    ap.add_argument("--layout", default="auto", choices=["auto", "state_first", "question_first"])
+    ap.add_argument("--layout", default="auto", choices=["auto", "state_first", "question_first", "header"])
     args = ap.parse_args()
     data = json.loads((GAME / f"obstacles.{args.lang}.json").read_text())
     question, back = data["question"], {k: k for k in data["question"]["criteria"]}

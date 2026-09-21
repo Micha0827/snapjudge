@@ -2,7 +2,7 @@
 
 import pytest
 
-from snapjudge.prompts import NOUL_LABELS, _dedupe_surfaces, question_block, render_value, state_block
+from snapjudge.prompts import NOUL_LABELS, _dedupe_surfaces, question_block, question_header, render_value, state_block
 
 
 def test_render_value_strips_text():
@@ -101,3 +101,16 @@ def test_dedupe_first_option_wins_shared_variant():
 def test_dedupe_leaves_disjoint_forms_alone():
     surfaces = {"run": ["run", "Run"], "jump": ["jump", "Jump"]}
     assert _dedupe_surfaces(surfaces) == surfaces
+
+
+def test_question_header_lists_all_questions_in_order():
+    qs = {
+        "urgent": {"type": "noul", "instructions": "  Is this urgent? "},
+        "team": {"type": "choice", "instructions": "Which team?", "criteria": {"billing": "", "tech": ""}},
+    }
+    header = question_header(qs)
+    assert header.startswith("You will be asked the following questions about the state below")
+    assert "1. Is this urgent?\n2. Which team?" in header
+    assert "billing" not in header  # only the questions, not their options
+    assert header.endswith("\n\n")
+
