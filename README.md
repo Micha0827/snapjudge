@@ -119,7 +119,10 @@ Response from Qwen3.6-35B-A3B:
 `confidence` is 1 − the normalized entropy of the distribution, so 0.78 for `technical` with a
 real alternative `billing` yields a modest 0.46. Extensions beyond the TypeSafe format:
 `"debug": true` adds timings, the top next tokens and a *coverage* value (how much probability
-the model put on allowed labels at all), and `"layout"` forces the prompt order.
+the model put on allowed labels at all), and `"layout"` forces the prompt order: `state_first`,
+`question_first`, or `header` (all questions listed, then the state, then each question; see
+[Where the gap is](#comparison-with-jev-on-typesafes-public-cases)). The default `auto` uses
+question-first, and state-first for a long state with several questions.
 `snapjudge-serve --api-key …` requires a bearer token. MLX's buffer cache is capped at 4 GB
 (`SO_CACHE_LIMIT_GB`), so the server stays a good neighbor to other model servers on the same Mac.
 
@@ -216,6 +219,14 @@ records elsewhere in a long document (about 8,000 tokens). Jev gets 65 of 75, th
 Putting the question before the document helped (50 of 75, overall about 80.7 %) but made those
 cases 6–8× slower, up to 13 minutes for a 48-question invoice on the M2 Max. Cross-referencing
 inside long documents is where Jev's training shows, in accuracy and in speed.
+
+A middle way, suggested in a discussion on r/LocalLLaMA, is `"layout": "header"`: all questions
+of the request are listed first, then the document, then each question on its own. The document
+is still prefilled only once, but it is read with the questions in view. On the five invoices,
+scored against TypeSafe's reference as published on 2026-09-21 (a few answers differ from the
+snapshot above), the 35B-A3B answered 41 of the 75 choices correctly state-first, 45 with the
+header and 50 question-first; the header run took 4.3 minutes, the state-first run 4.7. Four
+items are a hint rather than proof, so `auto` does not use it yet.
 
 **Reproduce.** TypeSafe's raw case data is not included in this repository, and neither is any
 code from jev-on-a-laptop (it has no license file). Clone it separately and follow its README to

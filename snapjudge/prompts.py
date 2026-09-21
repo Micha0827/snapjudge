@@ -28,6 +28,16 @@ def state_block(state) -> str:
     return f"<state>\n{render_value(state)}\n</state>\n\n"
 
 
+def question_header(questions: dict) -> str:
+    """All questions of a request, listed before the state (layout "header"). The state is then
+    encoded with every question in view, and it is still prefilled only once per request."""
+    lines = [f"{i}. {render_value(q['instructions'])}" for i, q in enumerate(questions.values(), 1)]
+    return (
+        "You will be asked the following questions about the state below, one at a time. "
+        "Read the state with all of them in mind.\n" + "\n".join(lines) + "\n\n"
+    )
+
+
 def _variants(label: str) -> list[str]:
     """The label plus a capitalized variant; models like to start a line with a capital."""
     forms = [label]

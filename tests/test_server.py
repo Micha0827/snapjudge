@@ -70,7 +70,7 @@ def test_request_structured_state():
     assert req.state == {"amount": -12.5, "memo": "rent"}
 
 
-@pytest.mark.parametrize("layout", ["auto", "state_first", "question_first"])
+@pytest.mark.parametrize("layout", ["auto", "state_first", "question_first", "header"])
 def test_request_layouts(layout):
     assert SystemOneRequest(state="x", questions={}, layout=layout).layout == layout
 

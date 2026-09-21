@@ -39,7 +39,7 @@ def main():
     ap.add_argument("out")
     ap.add_argument("--local", help="model path or Hugging Face id (in-process)")
     ap.add_argument("--url", help="base URL of a running server")
-    ap.add_argument("--layout", default="auto", choices=["auto", "state_first", "question_first"])
+    ap.add_argument("--layout", default="auto", choices=["auto", "state_first", "question_first", "header"])
     ap.add_argument("--workflows", nargs="*", help="only these workflows (default: all)")
     args = ap.parse_args()
 
